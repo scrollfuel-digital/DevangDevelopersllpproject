@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from "framer-motion"
-import video from "../assets/herosection/VideoProject.mp4"
+import video from "../assets/herosection/Projectvideo1.mp4"
 
 const Home = () => {
   const videoRef = useRef(null)

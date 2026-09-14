@@ -8,7 +8,7 @@ import building from "../assets/aboutussectionpage/abt-legacy-bg.webp";
 import about1 from "../assets/aboutussectionpage/hemal.jpeg";
 import about2 from "../assets/aboutussectionpage/sunil.png";
 import aboutus from "../assets/aboutussectionpage/aboutus.png";
-import hero from "../assets/aboutussectionpage/video/Devang_Website_Vid.mp4";
+import hero from "../assets/aboutussectionpage/video/aboutvideo.mp4";
 import VisionarySection from "../components/ui/VisionarySection";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -490,39 +490,65 @@ const About = () => {
         />
 
         {/* Heading */}
+
         <div
           className="
-            relative
-            z-10
-            w-full
-            px-5
-            pb-12
-            text-center
-            sm:px-8
-            sm:pb-16
-            md:pb-20
-            lg:pb-24
-          "
+    relative
+    z-10
+    
+    flex
+    h-full
+    w-full
+    items-center
+    justify-start
+    px-5
+    text-left
+    sm:px-8
+    md:px-12
+    lg:px-16
+    xl:px-20
+  "
         >
-          <p
+          <h2
             className="
-              font-essonnes
-              text-[clamp(1.55rem,7vw,2.25rem)]
-              leading-[1.12]
-              text-brand-white
-              sm:text-4xl
-              md:text-5xl
-            "
+      hero-heading
+      w-full
+      max-w-[720px]
+      font-essonnes
+      text-left
+      text-[clamp(2rem,8vw,3.75rem)]
+      leading-[1.05]
+      tracking-[-0.02em]
+    "
           >
-            <span className="hero-line block">
-              The Signature of
-            </span>
+            <h2
+              className="
+        hero-line
+        block
+        !text-brand-primary-deep
+        pl-8
+      "
+            >
+              Crafting <br /> Legacies
+            </h2>
 
-            <span className="hero-line brand-tagline block">
-              Sophisticated Living
-            </span>
-          </p>
+            <h2
+              className="
+        hero-line
+        mt-1
+        block
+         pl-8
+        !text-brand-black
+        sm:mt-2
+      "
+            >
+              Beyond <br /> Expectations
+            </h2>
+          </h2>
         </div>
+
+
+
       </section>
 
       {/* =========================================================
@@ -866,6 +892,7 @@ const About = () => {
                 sm:!mt-10
                 sm:text-base
                 sm:leading-8
+                sm:text-center 
                 text-justify
               "
             >
