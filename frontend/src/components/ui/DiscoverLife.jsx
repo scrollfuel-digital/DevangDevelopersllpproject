@@ -311,20 +311,17 @@ const DiscoverLife = () => {
           <div className="absolute inset-0 bg-white/38" />
         </div>
 
-        <p className="eyebrow mb-3">
-          Discover Life at
-        </p>
 
-        <h2
+        <h3
           ref={headingRef}
           className="font-serif text-xl leading-snug text-brand-primary sm:text-4xl"
         >
-          The Devang 
+          A Lifestyle Beyond
           {" "}
-          <h2 className="!text-brand-primary">
-            Lifestyle
-          </h2>
-        </h2>
+          <h3 className="!text-brand-primary">
+             Expectations
+          </h3>
+        </h3>
       </div>
 
       {/* =====================================================

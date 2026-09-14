@@ -95,14 +95,6 @@ const Home = () => {
           />
         </motion.div>
 
-        <motion.div
-          className="absolute inset-0 z-[5]"
-          style={{
-            opacity: overlayOpacity,
-            background:
-              'linear-gradient(180deg, rgba(20,17,14,0.30) 0%, rgba(20,17,14,0.08) 28%, rgba(20,17,14,0.12) 60%, rgba(20,17,14,0.65) 100%), linear-gradient(90deg, rgba(20,17,14,0.18) 0%, rgba(20,17,14,0) 45%)',
-          }}
-        />
 
         <motion.div
           className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 pb-24 sm:px-10 sm:pb-28 md:px-16 lg:px-20"

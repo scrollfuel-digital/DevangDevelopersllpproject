@@ -418,9 +418,9 @@ function Hero() {
 /* -------------------------------------------------------------------- */
 
 const stats = [
-  { target: 25, suffix: "+", label: "Years of Devang Developers" },
-  { target: 500, suffix: "+", label: "Happy Families" },
-  { target: 2022, suffix: "", label: "Iconic Realtor Award" },
+  { target: 25, suffix: "+", label: "Legacy" },
+  { target: 500, suffix: "+", label: "Families" },
+  { target: 2022, suffix: "", label: "Excellence" },
 ];
 
 const welcomeParagraphs = [
@@ -1958,23 +1958,20 @@ function Contact() {
 }
 
 
-/* -------------------------------------------------------------------- */
-/*  RERA strip                                                          */
-/* -------------------------------------------------------------------- */
-
 function ReraStrip() {
   return (
-    <section className="bg-white font-sans py-20">
+    <section className="bg-white py-12 font-sans sm:py-16 lg:py-20">
 
-      {/* Main RERA Information */}
+      {/* =========================================================
+          MAIN RERA INFORMATION
+      ========================================================= */}
       <div
         className="
           mx-auto
           flex
           max-w-[1440px]
           flex-col
-          px-6
-          py-8
+          px-5
           sm:px-10
           lg:flex-row
           lg:items-center
@@ -1983,105 +1980,192 @@ function ReraStrip() {
         "
       >
 
-        {/* QR CODE */}
+        {/* =======================================================
+            QR + PROJECT INFORMATION
+        ======================================================= */}
         <div
           className="
-    flex
-    w-full
-    flex-col
-    items-center
-    justify-center
-    lg:w-1/2
-    lg:flex-row
-    lg:gap-10
-  "
+            flex
+            w-full
+            flex-col
+            items-center
+            justify-center
+            lg:w-1/2
+            lg:flex-row
+            lg:gap-10
+          "
         >
-          <div className="flex items-center justify-center gap-15">
+          <div
+            className="
+              flex
+              w-full
+              flex-col
+              items-center
+              justify-center
+              gap-5
+              sm:gap-6
+              lg:w-auto
+              lg:flex-row
+              lg:gap-10
+            "
+          >
 
-            {/* QR Code */}
-            <img
-              src={IMG.reraQr}
-              alt="Riddhi Siddhi III MahaRERA QR Code"
+            {/* =================================================
+                QR CODE
+            ================================================= */}
+            <div className="flex shrink-0 items-center justify-center">
+              <img
+                src={IMG.reraQr}
+                alt="Riddhi Siddhi III MahaRERA QR Code"
+                className="
+                  h-[120px]
+                  w-[120px]
+                  object-contain
+                  sm:h-[140px]
+                  sm:w-[140px]
+                  lg:h-[140px]
+                  lg:w-[140px]
+                "
+              />
+            </div>
+
+            {/* =================================================
+                RERA INFORMATION
+            ================================================= */}
+            <div
               className="
-        h-[120px]
-        w-[120px]
-        object-contain
-        sm:h-[140px]
-        sm:w-[140px]
-      "
-            />
+                flex
+                w-full
+                flex-col
+                items-center
+                text-center
+                leading-[1.3]
+                text-[#333]
+                lg:w-auto
+                lg:items-start
+                lg:text-left
+              "
+            >
 
-            {/* RERA Information */}
-            <div className="text-[15px] leading-[1.3] text-[#333]">
-
-              {/* PROJECT NAME - BELOW */}
+              {/* PROJECT NAME */}
               <div>
-                <span className="text-brand-primary font-bold text-5xl">
+                <span
+                  className="
+                    text-[clamp(2rem,9vw,3rem)]
+                    font-bold
+                    leading-tight
+                    text-brand-primary
+                    sm:text-5xl
+                    lg:text-5xl
+                  "
+                >
                   Riddhi Siddhi III
                 </span>
               </div>
-              {/* MAHARERA - TOP */}
-              <div className="mt-2 flex items-center justify-center gap-2 text-center">
-                <span className="text-lg font-semibold text-brand-black1">
+
+              {/* MAHARERA NUMBER */}
+              <div
+                className="
+                  mt-3
+                  flex
+                  flex-wrap
+                  items-center
+                  justify-center
+                  gap-x-2
+                  gap-y-1
+                  text-center
+                  lg:justify-start
+                  lg:text-left
+                "
+              >
+                <span
+                  className="
+                    text-sm
+                    font-semibold
+                    text-brand-black1
+                    sm:text-lg
+                  "
+                >
                   MAHARERA NO.
                 </span>
 
-                <span className="text-brand-primary font-semibold">
+                <span className="text-base font-semibold text-brand-primary sm:text-lg">
                   :
                 </span>
 
-                <span className="text-2xl font-bold text-brand-primary">
+                <span
+                  className="
+                    text-base
+                    font-bold
+                    text-brand-primary
+                    sm:text-2xl
+                  "
+                >
                   PR1190002501512
                 </span>
               </div>
 
-
             </div>
-
           </div>
         </div>
 
-        {/* VERTICAL DIVIDER */}
+        {/* =======================================================
+            VERTICAL DIVIDER
+        ======================================================= */}
         <div
           className="
-            hidden
-            h-[145px]
-            w-px
+            my-7
+            h-px
+            w-full
             bg-[#D5D5D5]
-            lg:block
+            lg:my-0
+            lg:h-[145px]
+            lg:w-px
+            lg:shrink-0
           "
         />
 
-        {/* RERA DETAILS */}
+        {/* =======================================================
+            RERA DETAILS
+        ======================================================= */}
         <div
           className="
-            mt-8
             flex
             w-full
             items-center
-            lg:mt-0
             lg:w-1/2
             lg:pl-10
+            sm:pb-0
+            pb-10
           "
         >
           <ul
             className="
-              space-y-2
-              text-[20px]
-              leading-[1.4]
+              w-full
+              space-y-3
+              text-[14px]
+              leading-6
               text-[#333]
               sm:text-[15px]
+              sm:leading-7
+              lg:text-[15px]
             "
           >
-            <li className="flex gap-2">
-              <span>•</span>
+            <li className="flex items-start gap-3">
+              <span className="mt-1 shrink-0 text-brand-primary">
+                •
+              </span>
+
               <span>
                 Project Registered under Government of India RERA Act 2016
               </span>
             </li>
 
-            <li className="flex gap-2">
-              <span>•</span>
+            <li className="flex items-start gap-3">
+              <span className="mt-1 shrink-0 text-brand-primary">
+                •
+              </span>
+
               <span>
                 MAHA RERA Project Registration No.: PR1190002501512
               </span>
@@ -2091,26 +2175,42 @@ function ReraStrip() {
 
       </div>
 
-      {/* DISCLAIMER */}
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-12">
+      {/* =========================================================
+          DISCLAIMER
+      ========================================================= */}
+      <div
+        className="
+          mx-auto
+          max-w-[1440px]
+          px-5
+          sm:px-10
+          lg:px-12
+        "
+      >
 
         <div className="border-t border-[#D5D5D5]" />
 
         <p
           className="
-            py-3
-            text-[12px]
-            leading-[1.35]
+            py-4
+            text-[11px]
+            leading-5
             text-[#777]
-            sm:text-[18px]
+            sm:py-5
+            sm:text-[14px]
+            sm:leading-6
+            lg:text-[18px]
+            lg:leading-7
           "
         >
           <span className="font-bold text-[#555]">
             Disclaimer:
           </span>{" "}
-          This content is for informational purposes only and does not constitute an offer to avail of any service,
-          Prices mentioned are subject to change without notice, and properties mentioned are subject to
-          availability. images are for representation purposes only.
+          This content is for informational purposes only and does not
+          constitute an offer to avail of any service, Prices mentioned
+          are subject to change without notice, and properties mentioned
+          are subject to availability. Images are for representation
+          purposes only.
         </p>
 
       </div>
@@ -2118,6 +2218,7 @@ function ReraStrip() {
     </section>
   );
 }
+
 
 const Project = () => {
   useEffect(() => {

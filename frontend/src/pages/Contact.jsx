@@ -204,6 +204,8 @@ function ContactHero() {
             leading-8
             text-brand-black1/60
             sm:text-lg
+            sm:text-center
+            text-justify
           "
         >
           We would be delighted to connect with you. Whether you are

@@ -5,9 +5,9 @@ export default function Breadcrumb({ items = [] }) {
     return (
         <nav
             aria-label="Breadcrumb"
-            className="font-sans mx-auto max-w-[1440px] px-6 py-4 lg:px-12"
+            className="mx-auto max-w-[1440px] px-6 py-4 lg:px-12"
         >
-            <ol className="flex flex-wrap items-center gap-1 text-lg font-bold">
+            <ol className="flex flex-wrap items-center gap-1 text-[1.05rem] font-medium leading-relaxed">
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
 
@@ -22,11 +22,17 @@ export default function Breadcrumb({ items = [] }) {
                                 </li>
                             )}
 
-                            <li className={isLast ? "text-ink" : "text-ink-muted"}>
+                            <li
+                                className={
+                                    isLast
+                                        ? "font-bold text-ink"
+                                        : "font-bold text-ink-muted"
+                                }
+                            >
                                 {item.to && !isLast ? (
                                     <Link
                                         to={item.to}
-                                        className="transition-colors hover:text-brand-primary"
+                                        className="transition-colors duration-300 hover:text-brand-primary"
                                     >
                                         {item.label}
                                     </Link>
@@ -40,4 +46,4 @@ export default function Breadcrumb({ items = [] }) {
             </ol>
         </nav>
     );
-}   
+}
