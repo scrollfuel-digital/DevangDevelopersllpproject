@@ -248,14 +248,32 @@ function TeamCard({ member, index, onClick }) {
             onClick={() => onClick(member)}
             className="group cursor-pointer"
         >
-
             {/* Image */}
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[300px] overflow-hidden bg-white">
+            <div
+                className="
+                    relative
+                    mx-auto
+                    h-[240px]
+                    w-[180px]
+                    overflow-hidden
+                    bg-white
 
+                    sm:h-[310px]
+                    sm:w-[250px]
+                "
+            >
                 <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="
+                        h-full
+                        w-full
+                        object-cover
+                        object-top
+                        transition-transform
+                        duration-700
+                        group-hover:scale-105
+                    "
                     loading="lazy"
                 />
 
@@ -263,35 +281,115 @@ function TeamCard({ member, index, onClick }) {
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
 
                 {/* Experience */}
-                <span className="absolute bottom-5 left-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white">
+                <span
+                    className="
+                        absolute
+                        bottom-4
+                        left-4
+                        text-[9px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.18em]
+                        text-white
+
+                        sm:bottom-5
+                        sm:left-5
+                        sm:text-[10px]
+                        sm:tracking-[0.2em]
+                    "
+                >
                     {member.experience}
                 </span>
 
                 {/* Arrow */}
-                <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-black/20 text-white backdrop-blur-sm transition-all duration-300 group-hover:bg-brand-primary group-hover:border-brand-primary">
-                    <ArrowUpRight size={16} />
-                </div>
+                <div
+                    className="
+                        absolute
+                        right-3
+                        top-3
+                        flex
+                        h-8
+                        w-8
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/50
+                        bg-black/20
+                        text-white
+                        backdrop-blur-sm
+                        transition-all
+                        duration-300
 
+                        group-hover:border-brand-primary
+                        group-hover:bg-brand-primary
+
+                        sm:right-4
+                        sm:top-4
+                        sm:h-10
+                        sm:w-10
+                    "
+                >
+                    <ArrowUpRight size={14} className="sm:h-4 sm:w-4" />
+                </div>
             </div>
 
-
             {/* Information */}
-            <div className="mx-auto mt-5 max-w-[300px]">
+            <div
+                className="
+                    mx-auto
+                    mt-4
+                    w-[180px]
 
-                <span className="text-[10px] !font-bold uppercase tracking-[0.22em] text-brand-primary">
+                    sm:mt-5
+                    sm:w-[250px]
+                "
+            >
+                <span
+                    className="
+                        text-[9px]
+                        !font-bold
+                        uppercase
+                        tracking-[0.18em]
+                        text-brand-primary
+
+                        sm:text-[10px]
+                        sm:tracking-[0.22em]
+                    "
+                >
                     {member.badge}
                 </span>
 
-                <h5 className="mt-2 font-essonnes text-xl leading-tight text-[#1F1E1C] sm:text-2xl">
+                <h5
+                    className="
+                        mt-1.5
+                        font-essonnes
+                        text-lg
+                        leading-tight
+                        text-[#1F1E1C]
+
+                        sm:mt-2
+                        sm:text-2xl
+                    "
+                >
                     {member.name}
                 </h5>
 
-                <span className="mt-2 text-xs leading-5 text-grey">
+                <span
+                    className="
+                        mt-1.5
+                        block
+                        text-[11px]
+                        leading-5
+                        text-grey
+
+                        sm:mt-2
+                        sm:text-xs
+                    "
+                >
                     {member.role}
                 </span>
-
             </div>
-
         </motion.div>
     );
 }
@@ -392,7 +490,7 @@ export default function VisionarySection() {
                         Meet Our {" "}
                         <span className="text-brand-primary">Team</span>
                     </h3>
-                   
+
                     <p className=" mx-auto max-w-4xl text-center text-sm leading-7 text-brand-black1/60 sm:text-base sm:leading-8">
                         A collective of architects, engineers, financial
                         professionals, legal advisors, and project specialists

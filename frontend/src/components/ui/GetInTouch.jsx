@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { X } from "lucide-react";
 import officeimage from "../../assets/projects/ongoingproject/image.png";
+import CTAButton from "./CTAButton";
 
 function GetInTouchModal({ isOpen, onClose }) {
     useEffect(() => {
@@ -24,12 +25,18 @@ function GetInTouchModal({ isOpen, onClose }) {
     return (
         <div
             className="
-                fixed inset-0 z-50
-                flex items-center justify-center
-                bg-brand-black1/80
-                p-4
-                backdrop-blur-sm
-            "
+        fixed
+        inset-0
+        z-[9999]
+
+        flex
+        items-center
+        justify-center
+
+        bg-brand-black1/80
+        p-4
+        backdrop-blur-sm
+    "
             onClick={onClose}
         >
             <div
@@ -353,37 +360,7 @@ function GetInTouchModal({ isOpen, onClose }) {
                                 privacy policy.
                             </span>
                         </label>
-
-                        {/* Submit */}
-                        <button
-                            type="submit"
-                            className="
-                                group
-                                relative
-                                mt-1
-                                inline-flex
-                                h-12
-                                min-w-[150px]
-                                items-center
-                                justify-center
-                                overflow-hidden
-                                border
-                                border-brand-primary
-                                bg-brand-primary
-                                px-7
-                                font-sans
-                                text-xs
-                                font-semibold
-                                uppercase
-                                tracking-[0.18em]
-                                text-white
-                                transition-all
-                                duration-300
-                                hover:bg-brand-primary-deep
-                            "
-                        >
-                            Submit
-                        </button>
+                        <CTAButton label="Submit" type="submit" />
                     </form>
                 </div>
             </div>

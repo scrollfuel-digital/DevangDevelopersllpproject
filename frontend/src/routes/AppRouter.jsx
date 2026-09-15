@@ -1,5 +1,7 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Aboutus from "../pages/About";
 import Project from "../pages/Project";
 import Contact from "../pages/Contact";
@@ -9,13 +11,26 @@ import Hero from "../pages/Hero";
 const AppRouter = () => {
   return (
     <Routes>
+      {/* Home */}
       <Route path="/" element={<Hero />} />
+
+      {/* About */}
       <Route path="/about" element={<Aboutus />} />
+
+      {/* Projects */}
       <Route path="/project" element={<Project />} />
-      <Route path="/gallery" element={<Navigate to="/project" replace />} />
+
+      {/* Gallery → Projects */}
+      <Route
+        path="/gallery"
+        element={<Navigate to="/project" replace />}
+      />
+
+      {/* Blog */}
       <Route path="/blog" element={<Blog />} />
+
+      {/* Contact */}
       <Route path="/contact" element={<Contact />} />
-      
     </Routes>
   );
 };

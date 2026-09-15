@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import projectVideo from "../../assets/projects/ongoingproject/VideoProject9.mp4";
 import CTAButton from "./CTAButton";
+
+/* =========================================================
+   PROJECT DATA
+========================================================= */
 
 const PROJECTS = [
     {
@@ -12,7 +17,7 @@ const PROJECTS = [
         tagline: "Glow with timeless elegance after dark",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788780919/image_kqhmjq.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788780919/image_kqhmjq.png",
         features: [
             "Grand dual-access entrance from 9m & 24m wide roads with 4-level automated puzzle parking",
             "11th-floor amenity deck: pool, mini theatre, gym, yoga deck, kids' play & multipurpose hall",
@@ -26,7 +31,7 @@ const PROJECTS = [
         location: "Jaiprakash Nagar, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788762318/GA1_izxote.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762318/GA1_izxote.png",
         features: [
             "Thoughtfully designed apartments in a well-connected neighbourhood",
             "Quality construction with modern amenities",
@@ -40,7 +45,7 @@ const PROJECTS = [
         location: "Friends Colony, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788762361/MANGAL1_rikpsq.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762361/MANGAL1_rikpsq.png",
         video: projectVideo,
         features: [
             "Comfortable residences in a peaceful, family-friendly locality",
@@ -55,7 +60,7 @@ const PROJECTS = [
         location: "Shivaji Nagar, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788764693/vh_mejtdb.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788764693/vh_mejtdb.png",
         video: projectVideo,
         features: [
             "Elevated living with premium specifications",
@@ -70,7 +75,7 @@ const PROJECTS = [
         location: "Laxmi Nagar, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788765047/VE_jw1oc4.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788765047/VE_jw1oc4.png",
         video: projectVideo,
         features: [
             "Well-planned homes in a sought-after residential pocket",
@@ -85,7 +90,7 @@ const PROJECTS = [
         location: "Ramdaspeth, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788766288/sa_ybjlpm.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788766288/sa_ybjlpm.png",
         video: projectVideo,
         features: [
             "Centrally located in one of Nagpur's premier addresses",
@@ -100,7 +105,7 @@ const PROJECTS = [
         location: "Wardha Road, Nagpur",
         link: "https://devangdevelopers.com/our-work/#",
         image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/f_auto,q_auto,w_1200/v1788765782/aa_yookbx.png",
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788765782/aa_yookbx.png",
         video: projectVideo,
         features: [
             "Convenient location along a major arterial road",
@@ -109,13 +114,135 @@ const PROJECTS = [
     },
 ];
 
+/* =========================================================
+   AREAS
+========================================================= */
+
 const AREAS = PROJECTS.map((project) => project.area);
 
+/* =========================================================
+   CLOUDINARY OPTIMIZATION
+========================================================= */
+
+/**
+ * Generates an optimized Cloudinary URL.
+ *
+ * f_auto        → WebP / AVIF automatically when supported
+ * q_auto        → automatic quality optimization
+ * w_width       → resize image to required width
+ * fl_progressive → progressive image loading
+ */
+const getCloudinaryUrl = (url, width) => {
+    if (!url || !url.includes("res.cloudinary.com")) {
+        return url;
+    }
+
+    return url.replace(
+        "/upload/",
+        `/upload/f_auto,q_auto,w_${width},fl_progressive/`
+    );
+};
+
+/* =========================================================
+   OPTIMIZED PROJECT IMAGE
+========================================================= */
+
+const OptimizedProjectImage = ({
+    project,
+    projectIndex,
+}) => {
+    const [loaded, setLoaded] = useState(false);
+
+    if (!project?.image) {
+        return null;
+    }
+
+    const image480 = getCloudinaryUrl(project.image, 480);
+    const image640 = getCloudinaryUrl(project.image, 640);
+    const image800 = getCloudinaryUrl(project.image, 800);
+    const image1200 = getCloudinaryUrl(project.image, 1200);
+
+    const isFirstProject = projectIndex === 0;
+
+    return (
+        <div className="relative h-full w-full bg-brand-white">
+
+            {/* =====================================================
+                LIGHTWEIGHT IMAGE LOADING BACKGROUND
+            ===================================================== */}
+
+            {!loaded && (
+                <div
+                    className="
+                        absolute
+                        inset-0
+                        z-0
+                        animate-pulse
+                        bg-brand-black1/[0.03]
+                    "
+                    aria-hidden="true"
+                />
+            )}
+
+            {/* =====================================================
+                RESPONSIVE CLOUDINARY IMAGE
+            ===================================================== */}
+
+            <img
+                src={image800}
+                srcSet={`
+                    ${image480} 480w,
+                    ${image640} 640w,
+                    ${image800} 800w,
+                    ${image1200} 1200w
+                `}
+                sizes="
+                    (max-width: 767px) 100vw,
+                    (max-width: 1280px) 50vw,
+                    600px
+                "
+                alt={project.name}
+                width="800"
+                height="640"
+                loading={isFirstProject ? "eager" : "lazy"}
+                fetchPriority={isFirstProject ? "high" : "auto"}
+                decoding="async"
+                onLoad={() => setLoaded(true)}
+                className={`
+                    relative
+                    z-10
+                    h-full
+                    w-full
+                    object-contain
+                    transition-all
+                    duration-700
+                    ease-out
+                    ${
+                        loaded
+                            ? "opacity-100"
+                            : "opacity-0"
+                    }
+                    hover:scale-[1.03]
+                `}
+            />
+        </div>
+    );
+};
+
+/* =========================================================
+   MAIN COMPONENT
+========================================================= */
+
 const ProjectsSection = () => {
-    const [activeArea, setActiveArea] = useState(AREAS[0]);
+    const [activeArea, setActiveArea] = useState(
+        AREAS[0]
+    );
+
     const [direction, setDirection] = useState(1);
 
-    const imageRefs = useRef({});
+    /* =========================================================
+       CURRENT PROJECT
+    ========================================================= */
 
     const project = PROJECTS.find(
         (item) => item.area === activeArea
@@ -126,36 +253,32 @@ const ProjectsSection = () => {
     );
 
     /* =========================================================
-       PRELOAD ALL PROJECT IMAGES
+       PRELOAD ONLY NEXT PROJECT IMAGE
+       
+       We intentionally DO NOT preload all images.
+       This prevents the browser from downloading 7 large
+       images at the same time.
     ========================================================= */
 
     useEffect(() => {
-        PROJECTS.forEach((project) => {
-            if (!project.image) return;
+        const nextProject =
+            PROJECTS[projectIndex + 1];
 
-            const img = new Image();
-            img.src = project.image;
-        });
-    }, []);
-
-    /* =========================================================
-       PRELOAD NEXT + PREVIOUS IMAGE
-    ========================================================= */
-
-    useEffect(() => {
-        const nextProject = PROJECTS[projectIndex + 1];
-
-        if (nextProject?.image) {
-            const img = new Image();
-            img.src = nextProject.image;
+        if (!nextProject?.image) {
+            return;
         }
 
-        const previousProject = PROJECTS[projectIndex - 1];
+        const nextImage = new Image();
 
-        if (previousProject?.image) {
-            const img = new Image();
-            img.src = previousProject.image;
-        }
+        nextImage.src = getCloudinaryUrl(
+            nextProject.image,
+            800
+        );
+
+        return () => {
+            nextImage.onload = null;
+            nextImage.onerror = null;
+        };
     }, [projectIndex]);
 
     /* =========================================================
@@ -163,49 +286,94 @@ const ProjectsSection = () => {
     ========================================================= */
 
     const handleAreaChange = (area) => {
-        if (area === activeArea) return;
+        if (area === activeArea) {
+            return;
+        }
 
         const nextIndex = PROJECTS.findIndex(
             (item) => item.area === area
         );
 
-        setDirection(nextIndex > projectIndex ? 1 : -1);
+        setDirection(
+            nextIndex > projectIndex ? 1 : -1
+        );
+
         setActiveArea(area);
     };
 
-    if (!project) return null;
+    if (!project) {
+        return null;
+    }
 
     /* =========================================================
        ALTERNATING LAYOUT
-
+       
        1,3,5,7 → IMAGE LEFT / CONTENT RIGHT
        2,4,6   → CONTENT LEFT / IMAGE RIGHT
     ========================================================= */
 
-    const isOddProject = (projectIndex + 1) % 2 !== 0;
+    const isOddProject =
+        (projectIndex + 1) % 2 !== 0;
 
     return (
-        <section className="bg-brand-white py-20 text-brand-black1 md:py-28">
+        <section
+            className="
+                bg-brand-white
+                py-20
+                text-brand-black1
+                md:py-28
+            "
+        >
 
-            <div className="mx-auto max-w-7xl px-6 md:px-10">
+            <div
+                className="
+                    mx-auto
+                    max-w-7xl
+                    px-6
+                    md:px-10
+                "
+            >
 
                 {/* =====================================================
                     SECTION HEADING
                 ===================================================== */}
 
-                <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
+                <div
+                    className="
+                        flex
+                        flex-col
+                        gap-6
+                        md:flex-row
+                        md:items-end
+                        md:justify-between
+                        md:gap-10
+                    "
+                >
 
-                    <h2 className="font-sans text-4xl font-bold leading-[1.1] !text-brand-primary md:text-5xl">
+                    <h2
+                        className="
+                            font-sans
+                            text-4xl
+                            font-bold
+                            leading-[1.1]
+                            !text-brand-primary
+                            md:text-5xl
+                        "
+                    >
                         Our Signature
                         <br />
-
                         Residences
                     </h2>
 
-                    <p className="max-w-sm ">
-                        Thoughtfully crafted with refined design,
-                        exceptional quality, and timeless elegance,
-                        our residences redefine contemporary luxury living.
+                    <p
+                        className="
+                            max-w-sm
+                        "
+                    >
+                        Thoughtfully crafted with refined
+                        design, exceptional quality, and
+                        timeless elegance, our residences
+                        redefine contemporary luxury living.
                     </p>
 
                 </div>
@@ -214,20 +382,38 @@ const ProjectsSection = () => {
                     PROJECT TABS
                 ===================================================== */}
 
-                <div className="mt-10 overflow-x-auto border-b border-brand-black1/10 no-scrollbar">
+                <div
+                    className="
+                        mt-10
+                        overflow-x-auto
+                        border-b
+                        border-brand-black1/10
+                        no-scrollbar
+                    "
+                >
 
-                    <div className="flex min-w-max gap-15 md:gap-21">
+                    <div
+                        className="
+                            flex
+                            min-w-max
+                            gap-15
+                            md:gap-21
+                        "
+                    >
 
                         {AREAS.map((area) => {
 
-                            const isActive = area === activeArea;
+                            const isActive =
+                                area === activeArea;
 
                             return (
                                 <button
                                     key={area}
                                     type="button"
                                     onClick={() =>
-                                        handleAreaChange(area)
+                                        handleAreaChange(
+                                            area
+                                        )
                                     }
                                     className={`
                                         relative
@@ -239,9 +425,10 @@ const ProjectsSection = () => {
                                         tracking-wide
                                         transition-colors
                                         duration-300
-                                        ${isActive
-                                            ? "text-brand-primary"
-                                            : "text-brand-black1/40 hover:text-brand-black1/70"
+                                        ${
+                                            isActive
+                                                ? "text-brand-primary"
+                                                : "text-brand-black1/40 hover:text-brand-black1/70"
                                         }
                                     `}
                                 >
@@ -291,7 +478,10 @@ const ProjectsSection = () => {
                             custom={direction}
                             initial={{
                                 opacity: 0,
-                                x: direction > 0 ? 35 : -35,
+                                x:
+                                    direction > 0
+                                        ? 35
+                                        : -35,
                             }}
                             animate={{
                                 opacity: 1,
@@ -299,11 +489,19 @@ const ProjectsSection = () => {
                             }}
                             exit={{
                                 opacity: 0,
-                                x: direction > 0 ? -35 : 35,
+                                x:
+                                    direction > 0
+                                        ? -35
+                                        : 35,
                             }}
                             transition={{
                                 duration: 0.5,
-                                ease: [0.22, 1, 0.36, 1],
+                                ease: [
+                                    0.22,
+                                    1,
+                                    0.36,
+                                    1,
+                                ],
                             }}
                             className="
                                 grid
@@ -317,7 +515,7 @@ const ProjectsSection = () => {
                         >
 
                             {/* =================================================
-                                IMAGE
+                                IMAGE / VIDEO
                             ================================================= */}
 
                             <div
@@ -329,45 +527,21 @@ const ProjectsSection = () => {
                                     aspect-[4/3]
                                     md:aspect-[5/4]
 
-                                    ${isOddProject
-                                        ? "md:order-1"
-                                        : "md:order-2"
+                                    ${
+                                        isOddProject
+                                            ? "md:order-1"
+                                            : "md:order-2"
                                     }
                                 `}
                             >
 
                                 {project.image ? (
 
-                                    <img
-                                        ref={(el) => {
-                                            imageRefs.current[
-                                                project.id
-                                            ] = el;
-                                        }}
-                                        src={project.image}
-                                        alt={project.name}
-                                        width="1200"
-                                        height="960"
-                                        loading={
-                                            projectIndex === 0
-                                                ? "eager"
-                                                : "lazy"
+                                    <OptimizedProjectImage
+                                        project={project}
+                                        projectIndex={
+                                            projectIndex
                                         }
-                                        fetchPriority={
-                                            projectIndex === 0
-                                                ? "high"
-                                                : "auto"
-                                        }
-                                        decoding="async"
-                                        className="
-                                            h-full
-                                            w-full
-                                            object-contain
-                                            transition-transform
-                                            duration-700
-                                            ease-out
-                                            hover:scale-[1.03]
-                                        "
                                     />
 
                                 ) : project.video ? (
@@ -388,7 +562,6 @@ const ProjectsSection = () => {
 
                                 ) : null}
 
-
                             </div>
 
                             {/* =================================================
@@ -401,14 +574,13 @@ const ProjectsSection = () => {
                                     flex-col
                                     justify-center
 
-                                    ${isOddProject
-                                        ? "md:order-2"
-                                        : "md:order-1"
+                                    ${
+                                        isOddProject
+                                            ? "md:order-2"
+                                            : "md:order-1"
                                     }
                                 `}
                             >
-
-                             
 
                                 {/* PROJECT NAME */}
 
@@ -550,7 +722,9 @@ const ProjectsSection = () => {
 
                         <button
                             type="button"
-                            disabled={projectIndex === 0}
+                            disabled={
+                                projectIndex === 0
+                            }
                             onClick={() => {
 
                                 if (projectIndex > 0) {
@@ -578,7 +752,6 @@ const ProjectsSection = () => {
                         >
                             ← Previous
                         </button>
-
 
                         {/* NEXT */}
 
@@ -627,7 +800,13 @@ const ProjectsSection = () => {
                     DISCOVER MORE
                 ===================================================== */}
 
-                <div className="mt-10 flex justify-center">
+                <div
+                    className="
+                        mt-10
+                        flex
+                        justify-center
+                    "
+                >
 
                     <a
                         href="/project"

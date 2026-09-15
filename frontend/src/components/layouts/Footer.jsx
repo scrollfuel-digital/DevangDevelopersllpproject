@@ -41,7 +41,7 @@ const Footer = () => {
     <footer className="bg-white text-brand-primary font-sans relative overflow-hidden shadow-xl border-t">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-10 relative z-10">
         {/* Main Footer Row — 1 col mobile / 2 col tablet / 4 col laptop+ */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 items-start pb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-3 items-start pb-3">
 
           {/* COLUMN 1: Logo + Socials */}
           <motion.div
@@ -83,31 +83,59 @@ const Footer = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.4 }}
-            className="space-y-3 flex flex-col items-start sm:items-start text-center sm:text-left"
+            className="
+    flex
+    w-full
+    flex-col
+    items-center
+    space-y-3
+    text-center
+    sm:items-start
+    sm:text-left
+  "
           >
             <h6 className="text-xs !font-bold font-black uppercase tracking-[0.2em] text-black border-b-2 border-brand-primary pb-2 inline-block">
               Quick Navigation
             </h6>
 
-            <ul className="space-y-2.5 !text-lg sm:text-sm !font-bold w-full">
+            <ul className="w-fit space-y-2.5 !text-lg sm:text-sm !font-bold">
               {quickLinks.map((link) => (
                 <li
                   key={link.name}
-                  className={`${link.subLinks ? "group relative" : ""} flex flex-col items-start sm:items-start`}
+                  className={`${link.subLinks ? "group relative" : ""
+                    } flex flex-col items-start`}
                 >
                   <Link
                     to={link.path}
                     onClick={() => window.scrollTo(0, 0)}
-                    className="text-black/50 hover:text-brand-black1 transition duration-200 flex items-center gap-1.5 group/link cursor-pointer"
+                    className="
+            flex
+            items-center
+            gap-1.5
+            cursor-pointer
+            text-black/50
+            transition
+            duration-200
+            hover:text-brand-black1
+          "
                   >
-                    <ChevronRight size={13} className="text-black/50 group-hover/link:text-brand-black1 group-hover/link:translate-x-1 transition-transform" />
+                    <ChevronRight
+                      size={13}
+                      className="
+              shrink-0
+              text-black/50
+              transition-transform
+              group-hover/link:translate-x-1
+              group-hover/link:text-brand-black1
+            "
+                    />
                     <span>{link.name}</span>
                   </Link>
-
                 </li>
               ))}
             </ul>
           </motion.div>
+
 
           {/* COLUMN 3: Corporate Head Desk */}
           <motion.div
@@ -116,51 +144,64 @@ const Footer = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.4 }}
-            className="space-y-3 flex flex-col items-start sm:items-start text-center sm:text-left"
+            className="
+    flex
+    w-full
+    flex-col
+    items-center
+    space-y-3
+    text-center
+    sm:items-start
+    sm:text-left
+    
+  "
           >
             <h6 className="text-xs !font-bold font-black uppercase tracking-[0.2em] text-black border-b-2 border-brand-primary pb-2 inline-block">
               Corporate Head Desk
             </h6>
 
-            <div className="space-y-3.5 text-15 w-full flex flex-col items-start sm:items-start">
+            <div className="w-fit space-y-3.5 text-15 pl-15 sm:pl-0">
+              {/* Phone */}
               <a
                 href="tel:+919822286549"
                 className="flex items-center gap-3 group transition"
               >
-                <div className="w-8 h-8 rounded-full bg-brand-gold-light text-brand-primary flex items-center justify-center shrink-0 shadow-sm mt-0.5 transition duration-300">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gold-light text-brand-primary shadow-sm transition duration-300">
                   <Phone size={14} />
                 </div>
-                <div>
-                  <span className="font-bold text-black/50 group-hover:text-brand-black1 transition">+91 98222 86549</span>
-                </div>
+
+                <span className="font-bold text-black/50 transition group-hover:text-brand-black1">
+                  +91 98222 86549
+                </span>
               </a>
 
+              {/* Email */}
               <a
                 href="mailto:devangdevelopers@gmail.com"
                 className="flex items-center gap-3 group transition"
               >
-                <div className="w-8 h-8 rounded-full bg-brand-gold-light text-brand-primary flex items-center justify-center shrink-0 shadow-sm mt-0.5 transition duration-300">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gold-light text-brand-primary shadow-sm transition duration-300">
                   <Mail size={14} />
                 </div>
-                <div>
-                  <span className="font-bold text-black/50 group-hover:text-brand-black1 transition break-all sm:break-normal">
-                    devangdevelopers@gmail.com
-                  </span>
-                </div>
+
+                <span className="break-all font-bold text-black/50 transition group-hover:text-brand-black1 sm:break-normal">
+                  devangdevelopers@gmail.com
+                </span>
               </a>
 
-              <div className="flex items-center gap-3 text-left">
-                <div className="w-8 h-8 rounded-full bg-brand-gold-light text-brand-primary flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+              {/* Address */}
+              <div className="flex items-start gap-3 text-left">
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gold-light text-brand-primary shadow-sm">
                   <MapPin size={14} />
                 </div>
-                <div>
-                  <span className="font-bold text-black/50 leading-snug block max-w-[220px] sm:max-w-none">
-                    32-A, Deep Apt, Pande Layout, Khamla Road, Nagpur
-                  </span>
-                </div>
+
+                <span className="block max-w-[220px] font-bold leading-snug text-black/50 sm:max-w-none">
+                  32-A, Deep Apt, Pande Layout, Khamla Road, Nagpur
+                </span>
               </div>
             </div>
-          </motion.div >
+          </motion.div>
+
 
           {/* COLUMN 4: Project Location Map */}
           < motion.div
@@ -169,7 +210,7 @@ const Footer = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.4 }}
-            className="space-y-3 col-span-1 sm:col-span-2 lg:col-span-1 w-full flex flex-col items-start sm:items-start"
+            className="space-y-3 col-span-1 sm:col-span-2 lg:col-span-1 w-full flex flex-col items-center sm:items-start"
           >
             <h6 className="text-xs !font-bold font-black uppercase tracking-[0.2em] text-black border-b-2 border-brand-primary pb-2 inline-block">
               Office Location Map

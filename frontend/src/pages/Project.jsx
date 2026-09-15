@@ -22,6 +22,7 @@ import lobby from "../assets/projects/ongoingproject/lobby.jpeg";
 
 // project page 
 import road from "../assets/projects/ongoingproject/road.jpeg";
+import road1 from "../assets/projects/ongoingproject/road1.png";
 import building from "../assets/projects/ongoingproject/image.png";
 import reraqr from "../assets/projects/ongoingproject/MahaReraQr.jpg.jpeg";
 
@@ -881,6 +882,36 @@ function LocationAccordion() {
   );
 }
 function RarityBanner() {
+  const londonStreetImages = [
+    {
+      src: road,
+      alt: "London Street road, Nagpur",
+    },
+    {
+      src: road1,
+      alt: "London Street shopping and lifestyle destination, Nagpur",
+    },
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // =========================================
+  // AUTO SLIDER
+  // =========================================
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) =>
+        prev === londonStreetImages.length - 1 ? 0 : prev + 1
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleDotClick = (index) => {
+    setActiveIndex(index);
+  };
+
   return (
     <section className="overflow-hidden bg-white py-12 sm:py-20 lg:py-[50px]">
       <div
@@ -893,7 +924,6 @@ function RarityBanner() {
           lg:grid-cols-[42%_58%]
         "
       >
-
         {/* =========================================
             LEFT TEXT
         ========================================= */}
@@ -903,10 +933,8 @@ function RarityBanner() {
             items-center
             px-6
             py-8
-
             sm:px-12
             sm:py-10
-
             lg:py-0
             lg:pl-[9.3vw]
             lg:pr-10
@@ -922,16 +950,9 @@ function RarityBanner() {
               tracking-[-0.025em]
               !text-brand-primary-deep
 
-              /* MOBILE */
               text-[26px]
-
-              /* TABLET */
               sm:text-[52px]
-
-              /* LAPTOP */
               lg:text-[30px]
-
-              /* LARGE DESKTOP */
               xl:text-[60px]
               2xl:text-[64px]
             "
@@ -943,11 +964,9 @@ function RarityBanner() {
         </Reveal>
 
         {/* =========================================
-            RIGHT IMAGE
+            RIGHT — LONDON STREET IMAGE SLIDER
         ========================================= */}
-        <RevealImage
-          src={IMG.rarity}
-          alt="Riddhi Siddhi III entrance lobby"
+        <Reveal
           className="
             relative
             h-[320px]
@@ -959,20 +978,109 @@ function RarityBanner() {
             lg:h-[500px]
           "
         >
-          <img
-            src={IMG.rarity}
-            alt="Riddhi Siddhi III entrance lobby"
+          {/* =========================================
+              IMAGE SLIDER
+          ========================================= */}
+          <AnimatePresence mode="sync">
+            <motion.img
+              key={activeIndex}
+              src={londonStreetImages[activeIndex].src}
+              alt={londonStreetImages[activeIndex].alt}
+              className="
+                absolute
+                inset-0
+                h-full
+                w-full
+                object-cover
+                object-center
+              "
+              initial={{
+                opacity: 0,
+                scale: 1.08,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 1.04,
+              }}
+              transition={{
+                opacity: {
+                  duration: 1.1,
+                  ease: "easeInOut",
+                },
+                scale: {
+                  duration: 4,
+                  ease: "easeOut",
+                },
+              }}
+            />
+          </AnimatePresence>
+
+          {/* =========================================
+              SUBTLE OVERLAY
+          ========================================= */}
+          <div
             className="
+              pointer-events-none
               absolute
               inset-0
-              h-full
-              w-full
-              object-cover
-              object-center
+              z-10
+              bg-gradient-to-t
+              from-black/30
+              via-transparent
+              to-transparent
             "
           />
-        </RevealImage>
 
+          {londonStreetImages.length > 1 && (
+            <div
+              className="
+                absolute
+                bottom-5
+                left-1/2
+                z-20
+                flex
+                -translate-x-1/2
+                items-center
+                gap-2
+                sm:bottom-7
+              "
+            >
+              {londonStreetImages.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleDotClick(index)}
+                  aria-label={`Go to London Street image ${index + 1}`}
+                  className="
+                    group
+                    flex
+                    h-6
+                    w-6
+                    items-center
+                    justify-center
+                  "
+                >
+                  <span
+                    className={`
+                      block
+                      rounded-full
+                      transition-all
+                      duration-500
+                      ${activeIndex === index
+                        ? "h-[7px] w-7 bg-white"
+                        : "h-[6px] w-[6px] bg-white/50 group-hover:bg-white/80"
+                      }
+                    `}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </Reveal>
       </div>
     </section>
   );
@@ -1117,8 +1225,8 @@ function Amenities() {
                   sm:text-sm
 
                   ${tab === zone
-                    ? "text-brand-primary"
-                    : "text-black/20 hover:text-black/40"
+                    ? "text-brand-primary !font-bold"
+                    : "text-black/50 hover:text-black/70 !font-bold"
                   }
                 `}
               >
@@ -1710,7 +1818,7 @@ function Contact() {
                 "
               >
                 Get in Touch
-               
+
               </h2>
             </Reveal>
 
@@ -1916,7 +2024,7 @@ function Contact() {
           hover:text-brand-gold
         "
                 >
-                 +91 98222 86549
+                  +91 98222 86549
                 </a>
               </div>
 

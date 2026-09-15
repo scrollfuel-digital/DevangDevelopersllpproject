@@ -689,17 +689,13 @@ const Navbar = () => {
             );
         };
     }, []);
-
-    /* ================================================================ */
-    /* OPEN ENQUIRE MODAL                                               */
-    /* ================================================================ */
-
     const openEnquireModal = () => {
+        // Close mobile navigation first
         setOpen(false);
 
+        // Open enquiry form directly
         setIsModalOpen(true);
     };
-
     /* ================================================================ */
     /* CLOSE ENQUIRE MODAL                                              */
     /* ================================================================ */
@@ -708,45 +704,32 @@ const Navbar = () => {
         setIsModalOpen(false);
     };
 
-    /* ================================================================ */
-    /* JSX                                                               */
-    /* ================================================================ */
-
     return (
         <>
-            {/* ======================================================== */}
-            {/* NAVBAR                                                    */}
-            {/* ======================================================== */}
-
             <header
                 className={`
-                    fixed
+        fixed
+        top-0
+        left-0
+        right-0
+        z-[250]
+        w-full
+        overflow-hidden
 
-                    top-0
-                    left-0
-                    right-0
+        transition-all
+        duration-500
+        ease-[cubic-bezier(0.22,1,0.36,1)]
 
-                    z-[250]
-
-                    w-full
-
-                    pointer-events-none
-                    overflow-hidden
-
-                    transition-all
-                    duration-500
-                    ease-[cubic-bezier(0.22,1,0.36,1)]
-
-                    ${showNavbar
-                        ? "translate-y-0 opacity-100"
-                        : "-translate-y-full opacity-0"
+        ${isModalOpen || !showNavbar
+                        ? "-translate-y-full opacity-0 pointer-events-none"
+                        : "translate-y-0 opacity-100"
                     }
 
-                    ${isScrolled
+        ${isScrolled
                         ? "bg-[#14120F]/95 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.18)]"
                         : "bg-transparent"
                     }
-                `}
+    `}
             >
                 <div
                     className="
@@ -1063,7 +1046,7 @@ const Navbar = () => {
 
                             ${open
                                 ? "text-brand-primary hover:shadow-[0_4px_20px_rgba(184,134,78,0.35)]"
-                                : "text-brand-primary hover:text-[#852541] hover:shadow-[0_4px_20px_rgba(169,129,74,0.25)]"
+                                : "text-brand-primary hover:text-brand-champagne hover:shadow-[0_4px_20px_rgba(169,129,74,0.25)]"
                             }
                         `}
                     >
@@ -1106,7 +1089,7 @@ const Navbar = () => {
                                 w-8
                                 sm:w-9
 
-                                h-4
+                                h-14
 
                                 shrink-0
                             "
@@ -1115,12 +1098,12 @@ const Navbar = () => {
                                 className={`
                                     absolute
 
-                                    h-[2.5px]
+                                    h-[5.5px]
                                     w-full
 
-                                    bg-brand-primary
+                                    bg-brand-gold-light
 
-                                    group-hover:bg-[#852541]
+                                    group-hover:bg-brand-primary
 
                                     rounded-full
 
@@ -1139,11 +1122,11 @@ const Navbar = () => {
                                 className={`
                                     absolute
 
-                                    h-[2.5px]
+                                    h-[5.5px]
 
-                                    bg-brand-primary
+                                    bg-brand-gold-light
 
-                                    group-hover:bg-[#852541]
+                                    group-hover:bg-brand-primary
 
                                     rounded-full
 
