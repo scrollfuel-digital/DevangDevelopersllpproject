@@ -1829,17 +1829,6 @@ const About = () => {
                 max-w-lg
               "
             >
-              <div
-                className="
-                  font-essonnes
-                  text-[clamp(4rem,18vw,7rem)]
-                  leading-none
-                  text-brand-primary/80
-                "
-              >
-                2022
-              </div>
-
               <h4
                 className="
                   mt-2
@@ -1855,16 +1844,28 @@ const About = () => {
                 <br />
                 Real Estate Awards
               </h4>
+              <div
+                className="
+                  font-essonnes
+                  text-[clamp(4rem,18vw,1rem)]
+                  leading-none
+                  text-brand-primary/80
+                "
+              >
+                2022
+              </div>
+
+
 
               <p
                 className="
-                  mt-5
+                  !mt-8
                   text-justify
                   text-[14px]
                   leading-7
                   text-black/65
 
-                  sm:mt-6
+                  sm:mt-16
                   sm:text-base
                   sm:leading-8
                 "
