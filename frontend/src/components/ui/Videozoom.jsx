@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
-import videoSrc from '../../assets/herosection/VideoProject2.mp4'
 
 const Videozoom = () => {
     const sectionRef = useRef(null)
@@ -29,7 +28,7 @@ const Videozoom = () => {
             >
                 <video
                     className="h-full w-full object-cover "
-                    src={videoSrc}
+                    src="https://res.cloudinary.com/mskkdqm6/video/upload/v1789539547/VideoProject2.mp4"
                     autoPlay
                     muted
                     loop

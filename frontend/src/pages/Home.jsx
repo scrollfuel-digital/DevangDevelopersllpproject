@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from "framer-motion"
-import video from "../assets/herosection/Projectvideo.mp4"
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Home = () => {
   const videoRef = useRef(null)
@@ -88,10 +87,12 @@ const Home = () => {
           <video
             ref={videoRef}
             className="h-full w-full object-cover saturate-[0.96]"
-            src={video}
+            src="https://res.cloudinary.com/mskkdqm6/video/upload/f_auto,q_auto/Projectvideo.mp4"
             autoPlay
             muted
+            loop
             playsInline
+            preload="metadata"
           />
         </motion.div>
 
