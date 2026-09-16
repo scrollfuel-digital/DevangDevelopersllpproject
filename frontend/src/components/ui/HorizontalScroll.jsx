@@ -56,14 +56,24 @@ const HorizontalScroll = () => {
     const projectRefs = useRef([]);
     const captionRefs = useRef([]);
 
-    // Keep loading information in refs for GSAP.
-    // This avoids rebuilding ScrollTrigger every time an image loads.
+    /*
+     * Image loading information.
+     *
+     * Ref is used by GSAP so ScrollTrigger does not
+     * have to rebuild every time an image loads.
+     */
     const loadedRef = useRef(new Set());
 
-    // Prevent the same caption from animating again.
+    /*
+     * Prevent caption animation from running twice.
+     */
     const captionShownRef = useRef(new Set());
 
-    // Used only to update the React loading UI.
+    /*
+     * State is only used for React UI:
+     * - loading overlay
+     * - image opacity
+     */
     const [loadedImages, setLoadedImages] = useState(
         () => new Set()
     );
@@ -82,11 +92,15 @@ const HorizontalScroll = () => {
         });
 
         /*
-         * Image is now available.
-         * Refresh dimensions without rebuilding ScrollTrigger.
+         * Wait until browser has painted the loaded image,
+         * then refresh ScrollTrigger dimensions.
          */
         requestAnimationFrame(() => {
             ScrollTrigger.refresh();
+
+            requestAnimationFrame(() => {
+                checkVisibleProjects();
+            });
         });
     }, []);
 
@@ -110,12 +124,16 @@ const HorizontalScroll = () => {
 
         if (!caption) return;
 
-        // Already animated
+        /*
+         * Don't animate the same caption again.
+         */
         if (captionShownRef.current.has(index)) {
             return;
         }
 
-        // Image must be completely loaded first
+        /*
+         * Image must be completely loaded.
+         */
         if (!loadedRef.current.has(index)) {
             return;
         }
@@ -129,7 +147,10 @@ const HorizontalScroll = () => {
             return;
         }
 
-        // Mark before animation to avoid duplicate timelines.
+        /*
+         * Mark immediately so duplicate timelines
+         * cannot be created.
+         */
         captionShownRef.current.add(index);
 
         /* --------------------------------------------------------
@@ -161,19 +182,20 @@ const HorizontalScroll = () => {
         });
 
         /* --------------------------------------------------------
-           TEXT SEQUENCE
+           ANIMATION
         -------------------------------------------------------- */
 
-        const tl = gsap.timeline({
+        const timeline = gsap.timeline({
             defaults: {
                 ease: "power3.out",
             },
         });
 
-        tl.to(line, {
-            scaleX: 1,
-            duration: 0.45,
-        })
+        timeline
+            .to(line, {
+                scaleX: 1,
+                duration: 0.45,
+            })
             .to(
                 number,
                 {
@@ -204,7 +226,7 @@ const HorizontalScroll = () => {
     }, []);
 
     /* ============================================================
-       CHECK WHICH PROJECT IS CURRENTLY VISIBLE
+       CHECK VISIBLE PROJECTS
     ============================================================ */
 
     const checkVisibleProjects = useCallback(() => {
@@ -214,15 +236,14 @@ const HorizontalScroll = () => {
             if (!card) return;
 
             /*
-             * Image must have loaded first.
+             * Image must be loaded first.
              */
             if (!loadedRef.current.has(index)) {
                 return;
             }
 
             /*
-             * Don't run the calculation again after
-             * this caption has already appeared.
+             * Caption already appeared.
              */
             if (captionShownRef.current.has(index)) {
                 return;
@@ -251,8 +272,8 @@ const HorizontalScroll = () => {
                     : 0;
 
             /*
-             * Caption starts when approximately 30%
-             * of the card has entered the viewport.
+             * Start text when 30% of the project
+             * card is visible.
              */
             if (visibility >= 0.30) {
                 showCaption(index);
@@ -262,7 +283,6 @@ const HorizontalScroll = () => {
 
     /* ============================================================
        GSAP HORIZONTAL SCROLL
-       IMPORTANT: THIS RUNS ONLY ONCE
     ============================================================ */
 
     useLayoutEffect(() => {
@@ -280,6 +300,10 @@ const HorizontalScroll = () => {
         }
 
         const ctx = gsap.context(() => {
+            /* ----------------------------------------------------
+               HORIZONTAL DISTANCE
+            ---------------------------------------------------- */
+
             const getScrollAmount = () => {
                 return Math.max(
                     0,
@@ -289,7 +313,7 @@ const HorizontalScroll = () => {
             };
 
             /* ----------------------------------------------------
-               INITIAL CAPTION STATES
+               INITIAL CAPTION STATE
             ---------------------------------------------------- */
 
             captionRefs.current.forEach((caption) => {
@@ -329,10 +353,10 @@ const HorizontalScroll = () => {
                 },
             });
 
-            /*
-             * First project can already be visible
-             * on page load.
-             */
+            /* ----------------------------------------------------
+               INITIAL REFRESH
+            ---------------------------------------------------- */
+
             requestAnimationFrame(() => {
                 ScrollTrigger.refresh();
 
@@ -370,15 +394,18 @@ const HorizontalScroll = () => {
     }, [checkVisibleProjects]);
 
     /* ============================================================
-       WHEN AN IMAGE FINISHES LOADING
-       Check if it is already visible.
+       CHECK AFTER IMAGE LOAD
     ============================================================ */
 
     useLayoutEffect(() => {
         if (loadedImages.size === 0) return;
 
         requestAnimationFrame(() => {
-            checkVisibleProjects();
+            ScrollTrigger.refresh();
+
+            requestAnimationFrame(() => {
+                checkVisibleProjects();
+            });
         });
     }, [
         loadedImages,
@@ -394,6 +421,10 @@ const HorizontalScroll = () => {
             ref={containerRef}
             className="w-full overflow-x-hidden"
         >
+            {/* ====================================================
+                HORIZONTAL SECTION
+            ==================================================== */}
+
             <section
                 ref={horizontalSectionRef}
                 className="
@@ -524,7 +555,7 @@ const HorizontalScroll = () => {
                     </div>
 
                     {/* =================================================
-                        PROJECTS
+                        PROJECT CARDS
                     ================================================= */}
 
                     {projects.map((project, index) => {
@@ -551,16 +582,30 @@ const HorizontalScroll = () => {
                                     overflow-hidden
                                     rounded-sm
 
-                                    bg-[#f3f1ed]
+                                    bg-white
+
+                                    /* =================================
+                                       MOBILE
+                                       Full viewport height.
+                                       Width follows natural image.
+                                    ================================= */
 
                                     h-screen
-                                    w-[88vw]
+                                    w-auto
+
+                                    /* =================================
+                                       TABLET — UNCHANGED
+                                    ================================= */
 
                                     sm:h-[60vh]
                                     sm:w-[75vw]
 
                                     md:h-[70vh]
                                     md:w-[60vw]
+
+                                    /* =================================
+                                       DESKTOP — UNCHANGED
+                                    ================================= */
 
                                     lg:h-[85vh]
                                     lg:w-[45vw]
@@ -577,18 +622,33 @@ const HorizontalScroll = () => {
                                     className="
                                         horizontal-image
 
-                                        absolute
-                                        inset-0
-
+                                        relative
                                         z-[1]
 
-                                        h-full
-                                        w-full
+                                        /* =============================
+                                           MOBILE
+                                           ============================= */
 
-                                        object-cover
+                                        h-screen
+                                        w-auto
+                                        max-w-none
+
+                                        object-contain
 
                                         transition-opacity
                                         duration-500
+
+                                        /* =============================
+                                           TABLET / DESKTOP
+                                           ============================= */
+
+                                        sm:absolute
+                                        sm:inset-0
+                                        sm:h-full
+                                        sm:w-full
+                                        sm:max-w-full
+
+                                        sm:object-cover
                                     "
                                     src={project.src}
                                     alt={`${project.line1} - ${project.address}`}
@@ -602,8 +662,8 @@ const HorizontalScroll = () => {
                                         index === 0
                                             ? "high"
                                             : index === 1
-                                            ? "auto"
-                                            : "low"
+                                                ? "auto"
+                                                : "low"
                                     }
                                     onLoad={() =>
                                         handleImageLoad(
@@ -760,7 +820,7 @@ const HorizontalScroll = () => {
                                         "
                                     />
 
-                                    {/* NUMBER */}
+                                    {/* PROJECT NUMBER */}
 
                                     <div
                                         className="
@@ -772,7 +832,6 @@ const HorizontalScroll = () => {
                                             sm:text-xs
 
                                             font-medium
-
                                             uppercase
 
                                             tracking-[0.35em]
@@ -784,7 +843,7 @@ const HorizontalScroll = () => {
                                         {project.number}
                                     </div>
 
-                                    {/* TITLE */}
+                                    {/* PROJECT TITLE */}
 
                                     <h3
                                         className="
@@ -799,7 +858,6 @@ const HorizontalScroll = () => {
                                             lg:text-sm
 
                                             font-medium
-
                                             uppercase
 
                                             leading-[1.05]
@@ -876,7 +934,6 @@ const HorizontalScroll = () => {
                                         sm:text-[10px]
 
                                         font-medium
-
                                         tracking-wider
 
                                         !text-white
@@ -906,7 +963,6 @@ const HorizontalScroll = () => {
                 {`
                     .project-card {
                         isolation: isolate;
-                        contain: layout paint;
                     }
 
                     .horizontal-image {
@@ -931,6 +987,41 @@ const HorizontalScroll = () => {
                     .project-address {
                         will-change: transform, opacity;
                     }
+
+                    /* =================================================
+                       MOBILE
+                       ================================================= */
+
+                    @media (max-width: 639px) {
+                        .project-card {
+                            width: fit-content;
+                            min-width: 0;
+                            height: 100vh;
+                        }
+
+                        .horizontal-image {
+                            position: relative;
+                            width: auto;
+                            height: 100vh;
+                            max-width: none;
+                            object-fit: contain;
+                        }
+                    }
+
+                    /* =================================================
+                       TABLET + DESKTOP
+                       ================================================= */
+
+                    @media (min-width: 640px) {
+                        .horizontal-image {
+                            position: absolute;
+                            inset: 0;
+                        }
+                    }
+
+                    /* =================================================
+                       REDUCED MOTION
+                       ================================================= */
 
                     @media (prefers-reduced-motion: reduce) {
                         .project-caption {
