@@ -24,7 +24,6 @@ const LEGACY_STATS = [
   { value: "500+", label: "Homes Delivered" },
   { value: "500+", label: "Happy Families" },
   { value: "12", label: "Masterpieces" },
-  { value: "2022", label: "Realty Excellence" },
 ];
 
 /* =========================================================
@@ -1001,7 +1000,7 @@ const About = () => {
               sm:gap-y-1
 
               md:mt-20
-              md:grid-cols-3
+              md:grid-cols-4
               md:gap-x-10
             "
           >

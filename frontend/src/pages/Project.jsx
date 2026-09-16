@@ -420,8 +420,8 @@ function Hero() {
 
 const stats = [
   { target: 25, suffix: "+", label: "Legacy" },
-  { target: 500, suffix: "+", label: "Families" },
-  { target: 2022, suffix: "", label: "Excellence" },
+  { target: 500, suffix: "+", label: "Happy Families" },
+  { target: 500, suffix: "", label: "Homes Delivered" },
 ];
 
 const welcomeParagraphs = [
@@ -460,9 +460,9 @@ function Welcome() {
           >
             {/* Heading */}
             <Reveal className="pb-4 text-center sm:pb-6 lg:pb-8">
-              <h2 className="font-bold text-2xl sm:text-3xl lg:text-5xl">
+              <h3 className="font-bold text-2xl sm:text-3xl lg:text-5xl">
                 Welcome to
-              </h2>
+              </h3>
 
               <h3 className="mt-1 text-3xl font-bold !text-brand-primary-deep sm:text-4xl lg:text-6xl">
                 Riddhi Siddhi III

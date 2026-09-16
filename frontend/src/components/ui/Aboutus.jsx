@@ -62,7 +62,7 @@ const Aboutus = () => {
         { value: 500, suffix: '+', label: 'Residences' },
         { value: 12, suffix: '', label: 'Landmarks' },
         { value: 500, suffix: '+', label: 'Families' },
-        { value: 2022, suffix: '', label: 'Excellence' },
+       
     ]
 
     return (
@@ -137,10 +137,10 @@ const Aboutus = () => {
                             duration: 2,
                             ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="font-essonnes leading-tight !text-brand-primary font-light text-xl sm:text-3xl md:text-4xl"
+                        className="font-essonnes leading-tight !text-brand-primary font-light text-xl sm:text-3xl md:text-4xl pb-5"
                     >
-                        Shaping Homes with Walls  Of Happiness
-                        
+                        Shaping Homes With Walls  Of Happiness
+
                     </motion.h3>
 
                     {/* Paragraph */}
@@ -157,7 +157,7 @@ const Aboutus = () => {
 
                     {/* Stats */}
                     <motion.div
-                        className="mt-5 grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3"
+                        className="mt-5 grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4"
                         variants={itemAnimation}
                         transition={{
                             duration: 2,
@@ -185,15 +185,13 @@ const Aboutus = () => {
                                     ease: [0.22, 1, 0.36, 1],
                                 }}
                             >
-                                <div className="font-essonnes font-bold text-3xl text-brand-primary sm:text-4xl">
-                                    {stat.value === 2022 ? (
-                                        '2022'
-                                    ) : (
+                                <div className=" font-bold text-3xl text-brand-primary sm:text-4xl">
+                                    
                                         <CountUp
                                             to={stat.value}
                                             suffix={stat.suffix}
                                         />
-                                    )}
+                                  
                                 </div>
 
                                 <p className="mt-1 text-sm font-medium text-dark-900/60 ">

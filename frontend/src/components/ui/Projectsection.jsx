@@ -9,49 +9,6 @@ import CTAButton from "./CTAButton";
 ========================================================= */
 
 const PROJECTS = [
-    {
-        id: "riddhi-siddhi-3",
-        name: "Riddhi Siddhi III",
-        area: "London Street",
-        location: "London Street, Nagpur",
-        tagline: "Glow with timeless elegance after dark",
-        link: "https://devangdevelopers.com/our-work/#",
-        image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788780919/image_kqhmjq.png",
-        features: [
-            "Grand dual-access entrance from 9m & 24m wide roads with 4-level automated puzzle parking",
-            "11th-floor amenity deck: pool, mini theatre, gym, yoga deck, kids' play & multipurpose hall",
-        ],
-    },
-
-    {
-        id: "gaurisut-apartment",
-        name: "Gaurisut Apartment",
-        area: "Jaiprakash Nagar",
-        location: "Jaiprakash Nagar, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
-        image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762318/GA1_izxote.png",
-        features: [
-            "Thoughtfully designed apartments in a well-connected neighbourhood",
-            "Quality construction with modern amenities",
-        ],
-    },
-
-    {
-        id: "mangalmurti-residency",
-        name: "Mangalmurti Residency",
-        area: "Friends Colony",
-        location: "Friends Colony, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
-        image:
-            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762361/MANGAL1_rikpsq.png",
-        video: projectVideo,
-        features: [
-            "Comfortable residences in a peaceful, family-friendly locality",
-            "Spacious layouts with modern finishes",
-        ],
-    },
 
     {
         id: "vakratund-heights",
@@ -97,7 +54,6 @@ const PROJECTS = [
             "Timeless design with dependable build quality",
         ],
     },
-
     {
         id: "avneesh-apartment",
         name: "Avneesh Apartment",
@@ -112,6 +68,47 @@ const PROJECTS = [
             "Functional layouts designed for everyday living",
         ],
     },
+    {
+        id: "gaurisut-apartment",
+        name: "Gaurisut Apartment",
+        area: "Jaiprakash Nagar",
+        location: "Jaiprakash Nagar, Nagpur",
+        link: "https://devangdevelopers.com/our-work/#",
+        image:
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762318/GA1_izxote.png",
+        features: [
+            "Thoughtfully designed apartments in a well-connected neighbourhood",
+            "Quality construction with modern amenities",
+        ],
+    },
+    {
+        id: "mangalmurti-residency",
+        name: "Mangalmurti Residency",
+        area: "Friends Colony",
+        location: "Friends Colony, Nagpur",
+        link: "https://devangdevelopers.com/our-work/#",
+        image:
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762361/MANGAL1_rikpsq.png",
+        video: projectVideo,
+        features: [
+            "Comfortable residences in a peaceful, family-friendly locality",
+            "Spacious layouts with modern finishes",
+        ],
+    },
+    {
+        id: "riddhi-siddhi-3",
+        name: "Riddhi Siddhi III",
+        area: "London Street",
+        location: "London Street, Nagpur",
+        tagline: "Glow with timeless elegance after dark",
+        link: "https://devangdevelopers.com/our-work/#",
+        image:
+            "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788780919/image_kqhmjq.png",
+        features: [
+            "Grand dual-access entrance from 9m & 24m wide roads with 4-level automated puzzle parking",
+            "11th-floor amenity deck: pool, mini theatre, gym, yoga deck, kids' play & multipurpose hall",
+        ],
+    },
 ];
 
 /* =========================================================
@@ -120,18 +117,6 @@ const PROJECTS = [
 
 const AREAS = PROJECTS.map((project) => project.area);
 
-/* =========================================================
-   CLOUDINARY OPTIMIZATION
-========================================================= */
-
-/**
- * Generates an optimized Cloudinary URL.
- *
- * f_auto        → WebP / AVIF automatically when supported
- * q_auto        → automatic quality optimization
- * w_width       → resize image to required width
- * fl_progressive → progressive image loading
- */
 const getCloudinaryUrl = (url, width) => {
     if (!url || !url.includes("res.cloudinary.com")) {
         return url;
@@ -217,10 +202,9 @@ const OptimizedProjectImage = ({
                     transition-all
                     duration-700
                     ease-out
-                    ${
-                        loaded
-                            ? "opacity-100"
-                            : "opacity-0"
+                    ${loaded
+                        ? "opacity-100"
+                        : "opacity-0"
                     }
                     hover:scale-[1.03]
                 `}
@@ -235,7 +219,7 @@ const OptimizedProjectImage = ({
 
 const ProjectsSection = () => {
     const [activeArea, setActiveArea] = useState(
-        AREAS[0]
+        AREAS[6]
     );
 
     const [direction, setDirection] = useState(1);
@@ -425,10 +409,9 @@ const ProjectsSection = () => {
                                         tracking-wide
                                         transition-colors
                                         duration-300
-                                        ${
-                                            isActive
-                                                ? "text-brand-primary"
-                                                : "text-brand-black1/40 hover:text-brand-black1/70"
+                                        ${isActive
+                                            ? "text-brand-primary"
+                                            : "text-brand-black1/40 hover:text-brand-black1/70"
                                         }
                                     `}
                                 >
@@ -527,10 +510,9 @@ const ProjectsSection = () => {
                                     aspect-[4/3]
                                     md:aspect-[5/4]
 
-                                    ${
-                                        isOddProject
-                                            ? "md:order-1"
-                                            : "md:order-2"
+                                    ${isOddProject
+                                        ? "md:order-1"
+                                        : "md:order-2"
                                     }
                                 `}
                             >
@@ -574,10 +556,9 @@ const ProjectsSection = () => {
                                     flex-col
                                     justify-center
 
-                                    ${
-                                        isOddProject
-                                            ? "md:order-2"
-                                            : "md:order-1"
+                                    ${isOddProject
+                                        ? "md:order-2"
+                                        : "md:order-1"
                                     }
                                 `}
                             >
@@ -613,6 +594,25 @@ const ProjectsSection = () => {
                                     {project.location}
                                 </p>
 
+                                {/* TAGLINE */}
+
+                                {project.tagline && (
+                                    <p
+                                        className="
+                                            
+                                            max-w-lg
+                                            font-serif
+                                            text-xl
+                                            leading-relaxed
+                                            !text-brand-primary
+                                            lg:text-2xl
+                                        "
+                                    >
+                                        {project.tagline}
+                                    </p>
+                                )}
+
+
                                 {/* DIVIDER */}
 
                                 <div
@@ -623,24 +623,6 @@ const ProjectsSection = () => {
                                         bg-brand-black1/10
                                     "
                                 />
-
-                                {/* TAGLINE */}
-
-                                {project.tagline && (
-                                    <p
-                                        className="
-                                            mb-6
-                                            max-w-lg
-                                            font-serif
-                                            text-xl
-                                            leading-relaxed
-                                            text-brand-black1/80
-                                            lg:text-2xl
-                                        "
-                                    >
-                                        {project.tagline}
-                                    </p>
-                                )}
 
                                 {/* FEATURES */}
 
@@ -663,7 +645,7 @@ const ProjectsSection = () => {
 
                                                 <span
                                                     className="
-                                                        mt-2
+                                                        mt-1
                                                         h-2
                                                         w-2
                                                         shrink-0
@@ -796,36 +778,6 @@ const ProjectsSection = () => {
 
                 </div>
 
-                {/* =====================================================
-                    DISCOVER MORE
-                ===================================================== */}
-
-                <div
-                    className="
-                        mt-10
-                        flex
-                        justify-center
-                    "
-                >
-
-                    <a
-                        href="/project"
-                        className="
-                            font-sans
-                            !text-lg
-                            !font-bold
-                            tracking-wide
-                            text-brand-primary
-                            underline
-                            underline-offset-4
-                            transition-colors
-                            hover:text-brand-violet
-                        "
-                    >
-                        Discover More Projects →
-                    </a>
-
-                </div>
 
             </div>
 
