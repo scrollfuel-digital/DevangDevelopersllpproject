@@ -57,26 +57,9 @@ const DiscoverLife = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playingIndex, setPlayingIndex] = useState(null);
 
-  /*
-   * Tracks which videos are still loading.
-   *
-   * Example:
-   * {
-   *   0: false,
-   *   1: true,
-   *   2: false
-   * }
-   */
   const [loadingVideos, setLoadingVideos] = useState({});
 
-  /*
-   * Used to create a smooth transition while changing slides.
-   */
   const [isTransitioning, setIsTransitioning] = useState(false);
-
-  /* =========================================================
-     GSAP INTRO
-  ========================================================= */
 
   useEffect(() => {
     let ctx;
@@ -146,10 +129,6 @@ const DiscoverLife = () => {
     return () => ctx && ctx.revert();
   }, []);
 
-  /* =========================================================
-     GET 3 VISIBLE SLIDES
-  ========================================================= */
-
   const getVisibleSlides = () => {
     return [
       currentIndex,
@@ -159,10 +138,6 @@ const DiscoverLife = () => {
   };
 
   const visibleSlides = getVisibleSlides();
-
-  /* =========================================================
-     VIDEO LOADING
-  ========================================================= */
 
   const handleVideoLoadStart = (index) => {
     setLoadingVideos((prev) => ({
@@ -179,28 +154,20 @@ const DiscoverLife = () => {
   };
 
   const handleVideoError = (index) => {
-    /*
-     * Stop the loading animation if the browser
-     * cannot load the video.
-     */
+
     setLoadingVideos((prev) => ({
       ...prev,
       [index]: false,
     }));
   };
 
-  /* =========================================================
-     PLAY VIDEO
-  ========================================================= */
 
   const playVideo = (index) => {
     const video = videoRefs.current[index];
 
     if (!video) return;
 
-    /*
-     * Pause all other videos.
-     */
+    // Pause all other videos
     Object.keys(videoRefs.current).forEach((key) => {
       const otherVideo = videoRefs.current[key];
 
@@ -209,21 +176,18 @@ const DiscoverLife = () => {
       }
     });
 
+    // Always keep video muted
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+
     video
       .play()
       .then(() => {
         setPlayingIndex(index);
       })
       .catch(() => {
-        /*
-         * Browser autoplay restriction.
-         * Fallback to muted playback.
-         */
-        video.muted = true;
-
-        video.play().then(() => {
-          setPlayingIndex(index);
-        });
+        setPlayingIndex(null);
       });
   };
 
@@ -373,13 +337,7 @@ const DiscoverLife = () => {
   ========================================================= */
 
   useEffect(() => {
-    /*
-     * Preload the next two videos.
-     *
-     * This makes clicking Next feel much faster because
-     * the browser starts downloading the upcoming videos
-     * before the user reaches them.
-     */
+
     const nextIndex = (currentIndex + 1) % moments.length;
     const nextNextIndex = (currentIndex + 2) % moments.length;
 
@@ -510,16 +468,14 @@ const DiscoverLife = () => {
                   duration-700
                   ease-out
 
-                  ${
-                    isCenter
-                      ? "md:z-10 md:scale-[1.04] md:opacity-100"
-                      : "md:scale-[0.96] md:opacity-85"
+                  ${isCenter
+                    ? "md:z-10 md:scale-[1.04] md:opacity-100"
+                    : "md:scale-[0.96] md:opacity-85"
                   }
 
-                  ${
-                    position !== 1
-                      ? "hidden md:block"
-                      : ""
+                  ${position !== 1
+                    ? "hidden md:block"
+                    : ""
                   }
 
                   aspect-[4/5]
@@ -545,13 +501,14 @@ const DiscoverLife = () => {
                     duration-700
                     ease-out
 
-                    ${
-                      isLoading
-                        ? "scale-[1.03] opacity-0"
-                        : "scale-100 opacity-100"
+                    ${isLoading
+                      ? "scale-[1.03] opacity-0"
+                      : "scale-100 opacity-100"
                     }
                   `}
                   playsInline
+                  muted
+                  defaultMuted
                   preload="auto"
                   onLoadStart={() =>
                     handleVideoLoadStart(videoIndex)
@@ -594,10 +551,9 @@ const DiscoverLife = () => {
                     duration-700
                     ease-out
 
-                    ${
-                      isLoading
-                        ? "visible opacity-100"
-                        : "invisible opacity-0"
+                    ${isLoading
+                      ? "visible opacity-100"
+                      : "invisible opacity-0"
                     }
                   `}
                 >
@@ -885,10 +841,9 @@ const DiscoverLife = () => {
                 transition-all
                 duration-300
 
-                ${
-                  currentIndex === index
-                    ? "w-8 bg-brand-primary"
-                    : "w-2 bg-brand-primary/25 hover:bg-brand-primary/50"
+                ${currentIndex === index
+                  ? "w-8 bg-brand-primary"
+                  : "w-2 bg-brand-primary/25 hover:bg-brand-primary/50"
                 }
               `}
             />
