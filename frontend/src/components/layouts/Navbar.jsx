@@ -56,14 +56,6 @@ const NAV_LINKS = [
     },
 ];
 
-/* ==================================================================== */
-/* SCROLL SETTINGS                                                      */
-/* ==================================================================== */
-
-/*
- * Navbar hides only after the user has scrolled
- * this amount downward.
- */
 const HIDE_THRESHOLD = 100;
 
 /*
@@ -502,34 +494,6 @@ const Navbar = () => {
         setAutoIndex(0);
     }, [location.pathname]);
 
-    /* ================================================================ */
-    /* SCROLL BEHAVIOR                                                   */
-    /*
-     *
-     * Desired behavior:
-     *
-     * TOP
-     * ↓
-     * Navbar transparent + visible
-     *
-     * SCROLL DOWN
-     * ↓
-     * Navbar hides after HIDE_THRESHOLD
-     *
-     * SCROLL UP
-     * ↑
-     * Navbar immediately appears
-     *
-     * CONTINUE UP
-     * ↑
-     * Navbar remains sticky/visible
-     *
-     * TOP
-     * ↑
-     * Navbar becomes transparent again
-     *
-     * ================================================================ */
-
     useEffect(() => {
         const evaluateScroll = () => {
             const currentScrollY =
@@ -594,10 +558,7 @@ const Navbar = () => {
                  */
                 setShowNavbar(true);
 
-                /*
-                 * Once away from the top,
-                 * the navbar becomes a dark sticky navbar.
-                 */
+                
                 setIsScrolled(true);
             }
 
@@ -659,11 +620,6 @@ const Navbar = () => {
             );
         };
 
-        /*
-         * Set the initial scroll position.
-         * This is useful if the user refreshes
-         * the page while already scrolled.
-         */
         lastScrollY.current =
             window.scrollY;
 
@@ -1050,31 +1006,7 @@ const Navbar = () => {
                             }
                         `}
                     >
-                        <span
-                            className="
-                                font-serif
-                                hidden
-                                sm:block
-
-                                text-lg
-                                sm:text-xl
-
-                                font-bold
-
-                                tracking-[0.2em]
-
-                                uppercase
-
-                                whitespace-nowrap
-
-                                transition-colors
-                                duration-300
-                            "
-                        >
-                            {open
-                                ? "Close"
-                                : "Menu"}
-                        </span>
+                        
 
                         {/* HAMBURGER / X */}
 

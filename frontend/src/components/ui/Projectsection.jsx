@@ -15,7 +15,7 @@ const PROJECTS = [
         name: "Vakratund Heights",
         area: "Shivaji Nagar",
         location: "Shivaji Nagar, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788764693/vh_mejtdb.png",
         video: projectVideo,
@@ -30,7 +30,7 @@ const PROJECTS = [
         name: "Vignaharta Enclave",
         area: "Laxmi Nagar",
         location: "Laxmi Nagar, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788765047/VE_jw1oc4.png",
         video: projectVideo,
@@ -45,7 +45,7 @@ const PROJECTS = [
         name: "Shreyas Apartment",
         area: "Ramdaspeth",
         location: "Ramdaspeth, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788766288/sa_ybjlpm.png",
         video: projectVideo,
@@ -59,7 +59,7 @@ const PROJECTS = [
         name: "Avneesh Apartment",
         area: "Wardha Road",
         location: "Wardha Road, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788765782/aa_yookbx.png",
         video: projectVideo,
@@ -73,7 +73,7 @@ const PROJECTS = [
         name: "Gaurisut Apartment",
         area: "Jaiprakash Nagar",
         location: "Jaiprakash Nagar, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762318/GA1_izxote.png",
         features: [
@@ -86,7 +86,7 @@ const PROJECTS = [
         name: "Mangalmurti Residency",
         area: "Friends Colony",
         location: "Friends Colony, Nagpur",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788762361/MANGAL1_rikpsq.png",
         video: projectVideo,
@@ -101,7 +101,7 @@ const PROJECTS = [
         area: "London Street",
         location: "London Street, Nagpur",
         tagline: "Glow with timeless elegance after dark",
-        link: "https://devangdevelopers.com/our-work/#",
+        link: "http://localhost:5173/project",
         image:
             "https://res.cloudinary.com/ds1y9wivv/image/upload/v1788780919/image_kqhmjq.png",
         features: [

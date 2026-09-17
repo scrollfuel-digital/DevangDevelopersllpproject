@@ -11,16 +11,21 @@ import {
   Clock,
   Plus,
   Check,
+  AlertCircle,
+  RotateCcw,
 } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { useContact } from "../hooks/useContact";
 
 import Breadcrumb from "../components/ui/Breadcrumb";
 import building from "../assets/projects/ongoingproject/image.png";
 import CTAButton from "../components/ui/CTAButton";
 import officeimage from "../assets/contact.png";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
-function Reveal({ children, className = "", as: Tag = "div", delay = 0, y = 20 }) {
+function Reveal({ children, className = "", as: Tag = "div", delay = 0, y = 20, ...rest }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ function Reveal({ children, className = "", as: Tag = "div", delay = 0, y = 20 }
   }, [delay, y]);
 
   return (
-    <Tag ref={ref} className={className}>
+    <Tag ref={ref} className={className} {...rest}>
       {children}
     </Tag>
   );
@@ -272,17 +277,160 @@ function QuickConnect() {
 }
 
 function Contactus() {
-  const [submitted, setSubmitted] = useState(false);
-  const [values, setValues] = useState({ name: "", mobile: "", email: "" });
+  const {
+    submitContact,
+    submitting,
+    success,
+    error,
+    response,
+  } = useContact("CONTACT");
 
-  const handleChange = (field) => (e) =>
-    setValues((v) => ({ ...v, [field]: e.target.value }));
+  const [values, setValues] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    message: "",
+  });
+  const [agreed, setAgreed] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [clientErrors, setClientErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // wire up to your actual submit handler / API call here
-    setSubmitted(true);
+  const turnstileRef = useRef(null);
+  const turnstileSiteKey =
+    import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA";
+
+  // Field change handler
+  const handleChange = (field) => (e) => {
+    const val = e.target.value;
+    setValues((v) => ({ ...v, [field]: val }));
+    if (clientErrors[field]) {
+      setClientErrors((prev) => ({ ...prev, [field]: null }));
+    }
   };
+
+  // Dedicated handler for mobile: strictly numbers-only and maximum 10 digits
+  const handleMobileChange = (e) => {
+    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setValues((v) => ({ ...v, mobile: digitsOnly }));
+    if (clientErrors.mobile) {
+      setClientErrors((prev) => ({ ...prev, mobile: null }));
+    }
+  };
+
+  // Client-side validation before dispatching to API
+  const validateForm = () => {
+    const errs = {};
+    const trimmedName = values.name.trim();
+    const trimmedEmail = values.email.trim();
+    const trimmedMobile = values.mobile.trim();
+    const trimmedMessage = values.message.trim();
+
+    // Name: required, 2 to 50 characters
+    if (!trimmedName) {
+      errs.name = "Name cannot be empty!";
+    } else if (trimmedName.length < 2) {
+      errs.name = "Name must be at least 2 characters.";
+    } else if (trimmedName.length > 50) {
+      errs.name = "Name cannot exceed 50 characters.";
+    }
+
+    // Email: required, valid email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail) {
+      errs.email = "Email is required.";
+    } else if (!emailPattern.test(trimmedEmail)) {
+      errs.email = "Please enter a valid email address.";
+    }
+
+    // Phone: required, exactly 10 digits, numbers only
+    if (!trimmedMobile) {
+      errs.mobile = "Phone number is required.";
+    } else if (trimmedMobile.length !== 10 || !/^\d{10}$/.test(trimmedMobile)) {
+      errs.mobile = "Phone number must be exactly 10 digits.";
+    }
+
+    // Message: required, max 500 characters
+    if (!trimmedMessage) {
+      errs.message = "Message is required.";
+    } else if (trimmedMessage.length > 500) {
+      errs.message = "Message cannot exceed 500 characters.";
+    }
+
+    // Consent checkbox
+    if (!agreed) {
+      errs.agreed = "Please accept the authorization terms to proceed.";
+    }
+
+    // Turnstile token
+    if (!turnstileToken) {
+      errs.turnstile = "Please complete the security captcha verification.";
+    }
+
+    return errs;
+  };
+
+  const handleSubmit = async (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setClientErrors(errors);
+      return;
+    }
+
+    setClientErrors({});
+
+    // Construct exact payload: map mobile -> phoneNo, formType: "CONTACT"
+    const payload = {
+      name: values.name.trim(),
+      email: values.email.trim(),
+      phoneNo: values.mobile.trim(),
+      message: values.message.trim(),
+      formType: "CONTACT",
+      turnstileToken: turnstileToken,
+    };
+
+    const result = await submitContact(payload);
+
+    if (!result.success) {
+      // If submission fails (validation, captcha, or server error), reset Turnstile for re-try
+      try {
+        turnstileRef.current?.reset();
+      } catch { }
+      setTurnstileToken("");
+    }
+  };
+
+  const handleResetForm = () => {
+    resetContactState();
+    setValues({ name: "", mobile: "", email: "", message: "" });
+    setTurnstileToken("");
+    setAgreed(false);
+    setClientErrors({});
+    try {
+      turnstileRef.current?.reset();
+    } catch { }
+  };
+
+  // Combine client-side errors and backend field errors (map backend phoneNo -> mobile)
+  const nameError = clientErrors.name || error?.fieldErrors?.name;
+  const mobileError =
+    clientErrors.mobile || error?.fieldErrors?.phoneNo || error?.fieldErrors?.mobile;
+  const emailError = clientErrors.email || error?.fieldErrors?.email;
+  const messageError = clientErrors.message || error?.fieldErrors?.message;
+
+  // General banner error (captcha failure, network error, or server error)
+  const generalErrorMessage =
+    error?.type === "CAPTCHA_ERROR"
+      ? error.message
+      : error?.type === "SERVER_ERROR" || error?.type === "NETWORK_ERROR"
+        ? error.message
+        : error?.message && (!error.fieldErrors || Object.keys(error.fieldErrors).length === 0)
+          ? error.message
+          : null;
 
   return (
     <section className="bg-[#F5E6D0]">
@@ -309,82 +457,196 @@ function Contactus() {
               </p>
             </Reveal>
 
-            {submitted ? (
-              <div className="mt-10 flex items-start gap-4 rounded-sm border border-brand-primary/30 bg-white/60 px-6 py-6 font-sans">
-                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary-deep text-white">
-                  <Check size={16} strokeWidth={2} />
-                </span>
-                <div>
-                  <p className="text-[15px] font-medium text-ink">
-                    Thanks, {values.name || "there"} — we've got your details.
-                  </p>
-                  <p className="mt-1 text-sm text-ink/60">
-                    Someone from our team will reach out on {values.mobile || "your number"} shortly.
-                  </p>
+            {success ? (
+              <div className="mt-10 flex flex-col gap-6 rounded-sm border border-brand-primary/30 bg-white/85 p-8 font-sans shadow-sm">
+                <div className="flex items-start gap-4">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary-deep text-white">
+                    <Check size={20} strokeWidth={2.5} />
+                  </span>
+                  <div>
+                    <p className="text-[18px] font-semibold text-brand-primary-deep font-serif">
+                      Thank you, {values.name || "there"}!
+                    </p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink/80">
+                      {response?.message ||
+                        "Thank you for reaching out to Devang Constructions. We will get back to you shortly."}
+                    </p>
+                    <div className="mt-4 border-t border-[#E7DFD3] pt-3 text-xs text-ink/60">
+                      We have noted your contact number{" "}
+                      <span className="font-medium text-ink">+91 {values.mobile}</span> and email{" "}
+                      <span className="font-medium text-ink">{values.email}</span>.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-[#E7DFD3]/60">
+                  <button
+                    type="button"
+                    onClick={handleResetForm}
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-primary hover:text-brand-primary-deep underline underline-offset-4 transition-colors cursor-pointer"
+                  >
+                    <RotateCcw size={13} />
+                    Send another message
+                  </button>
                 </div>
               </div>
             ) : (
-              <Reveal delay={0.1} as="form" onSubmit={handleSubmit} className="mt-10 w-full font-sans">
-                <FloatingField
-                  label="Name"
-                  type="text"
-                  value={values.name}
-                  onChange={handleChange("name")}
-                  required
-                />
+              <Reveal delay={0.1} className="mt-10 w-full font-sans">
+                <form onSubmit={handleSubmit} noValidate className="w-full">
+                  {/* General Alert Banner */}
+                  {generalErrorMessage && (
+                    <div className="mb-6 flex items-start gap-3 rounded-sm border border-red-200 bg-red-50/95 p-4 text-[14px] text-red-800 shadow-sm">
+                      <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                      <div>
+                        <p className="font-medium">{generalErrorMessage}</p>
+                        {error?.type === "CAPTCHA_ERROR" && (
+                          <p className="mt-1 text-xs text-red-700">
+                            Please complete the security captcha below and try again.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
-                <div className="mt-7 grid grid-cols-[1fr_1.4fr] gap-4">
-                  <div className="relative border-b border-[#CDBFAE]">
-                    <select className="w-full appearance-none bg-transparent px-0 py-4 pr-6 text-[14px] text-[#292929] focus:outline-none">
-                      <option>India (+91)</option>
-                    </select>
-                    <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-xs">
-                      ⌄
-                    </span>
+                  {/* Name field */}
+                  <FloatingField
+                    label="Name"
+                    type="text"
+                    value={values.name}
+                    onChange={handleChange("name")}
+                    error={nameError}
+                    maxLength={50}
+                    required
+                  />
+
+                  {/* Mobile field with Country code indicator */}
+                  <div className="mt-7">
+                    <div className="grid grid-cols-[1fr_1.4fr] gap-4">
+                      <div className="relative border-b border-[#CDBFAE]">
+                        <select
+                          disabled
+                          aria-label="Country Code"
+                          className="w-full appearance-none bg-transparent px-0 py-4 pr-6 text-[14px] text-[#292929] focus:outline-none cursor-default"
+                        >
+                          <option>India (+91)</option>
+                        </select>
+                        <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-xs text-[#8D847A]">
+                          ⌄
+                        </span>
+                      </div>
+
+                      <FloatingField
+                        label="Mobile"
+                        type="tel"
+                        inputMode="numeric"
+                        value={values.mobile}
+                        onChange={handleMobileChange}
+                        error={mobileError}
+                        maxLength={10}
+                        required
+                      />
+                    </div>
                   </div>
 
-                  <FloatingField
-                    label="Mobile"
-                    type="tel"
-                    value={values.mobile}
-                    onChange={handleChange("mobile")}
-                    required
-                  />
-                </div>
+                  {/* Email field */}
+                  <div className="mt-7">
+                    <FloatingField
+                      label="Email"
+                      type="email"
+                      value={values.email}
+                      onChange={handleChange("email")}
+                      error={emailError}
+                      required
+                    />
+                  </div>
 
-                <div className="mt-7">
-                  <FloatingField
-                    label="Email"
-                    type="email"
-                    value={values.email}
-                    onChange={handleChange("email")}
-                    required
-                  />
-                </div>
+                  {/* Message field (Required by backend, max 500 characters) */}
+                  <div className="mt-7">
+                    <FloatingField
+                      label="Message"
+                      multiline
+                      value={values.message}
+                      onChange={handleChange("message")}
+                      error={messageError}
+                      maxLength={500}
+                      required
+                    />
+                  </div>
 
-                <label className="mt-7 flex items-start gap-3 text-[13px] leading-[1.5] text-[#403B36]">
-                  <input
-                    type="checkbox"
-                    required
-                    className="
-                      mt-0.5 h-6 w-6 shrink-0 appearance-none rounded-[2px]
-                      border border-[#D6A35D] bg-transparent
-                      checked:bg-[#9D174D]
-                      checked:after:block checked:after:ml-[6px] checked:after:mt-[2px]
-                      checked:after:h-[12px] checked:after:w-[6px] checked:after:rotate-45
-                      checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white
-                    "
-                  />
-                  <span>
-                    I agree and authorize the team to contact me, overriding any
-                    DNC/NDNC registry, and I accept the terms and conditions
-                    outlined in the privacy policy.
-                  </span>
-                </label>
+                  {/* Cloudflare Turnstile Captcha Widget */}
+                  <div className="mt-7">
+                    <div className="min-h-[65px]">
+                      <Turnstile
+                        ref={turnstileRef}
+                        siteKey={turnstileSiteKey}
+                        onSuccess={(token) => {
+                          setTurnstileToken(token);
+                          setClientErrors((prev) => ({ ...prev, turnstile: null }));
+                        }}
+                        onError={() => {
+                          setTurnstileToken("");
+                          setClientErrors((prev) => ({
+                            ...prev,
+                            turnstile: "Captcha verification failed. Please try again.",
+                          }));
+                        }}
+                        onExpire={() => {
+                          setTurnstileToken("");
+                        }}
+                      />
+                    </div>
+                    {clientErrors.turnstile && (
+                      <p className="mt-1 text-[12px] font-medium text-red-600 font-sans">
+                        {clientErrors.turnstile}
+                      </p>
+                    )}
+                  </div>
 
-                <div className="mt-7">
-                  <CTAButton label="Submit" type="submit" />
-                </div>
+                  {/* Consent Checkbox */}
+                  <div className="mt-6">
+                    <label className="flex items-start gap-3 text-[13px] leading-[1.5] text-[#403B36] cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={(e) => {
+                          setAgreed(e.target.checked);
+                          if (clientErrors.agreed) {
+                            setClientErrors((prev) => ({ ...prev, agreed: null }));
+                          }
+                        }}
+                        className="
+                        mt-0.5 h-6 w-6 shrink-0 appearance-none rounded-[2px]
+                        border border-[#D6A35D] bg-transparent
+                        checked:bg-[#9D174D]
+                        checked:after:block checked:after:ml-[6px] checked:after:mt-[2px]
+                        checked:after:h-[12px] checked:after:w-[6px] checked:after:rotate-45
+                        checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white
+                        focus:outline-none cursor-pointer
+                      "
+                      />
+                      <span>
+                        I agree and authorize the team to contact me, overriding any
+                        DNC/NDNC registry, and I accept the terms and conditions
+                        outlined in the privacy policy.
+                      </span>
+                    </label>
+                    {clientErrors.agreed && (
+                      <p className="mt-1 text-[12px] font-medium text-red-600 font-sans">
+                        {clientErrors.agreed}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Submit button with loading state */}
+                  <div className="mt-7">
+                    <CTAButton
+                      label={submitting ? "Submitting..." : "Submit"}
+                      type="submit"
+                      disabled={submitting}
+                      loading={submitting}
+                    />
+                  </div>
+                </form>
               </Reveal>
             )}
           </div>
@@ -394,32 +656,74 @@ function Contactus() {
   );
 }
 
-function FloatingField({ label, type, value, onChange, required }) {
+function FloatingField({
+  label,
+  type = "text",
+  value,
+  onChange,
+  required,
+  error,
+  multiline = false,
+  maxLength,
+  ...rest
+}) {
   const [focused, setFocused] = useState(false);
-  const active = focused || value?.length > 0;
+  const active = focused || (value && value.length > 0);
 
   return (
     <div className="relative border-b border-[#CDBFAE] pt-4">
       <label
         className={`
-          pointer-events-none absolute left-0 font-sans text-[#8D847A] transition-all duration-200
+          pointer-events-none absolute left-0 font-sans transition-all duration-200
+          ${error ? "!text-red-600 font-medium" : active ? "!text-brand-primary-deep" : "text-[#8D847A]"}
           ${active ? "top-0 text-[11px]" : "top-4 text-[14px]"}
         `}
       >
-        {label}{required ? "*" : ""}
+        {label}
+        {required ? "*" : ""}
       </label>
-      <input
-        type={type}
-        required={required}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        className="w-full bg-transparent px-0 pb-4 text-[14px] text-[#292929] focus:outline-none"
-      />
+
+      {multiline ? (
+        <textarea
+          required={required}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          maxLength={maxLength}
+          rows={3}
+          className="w-full resize-none bg-transparent px-0 pb-2 pt-2 text-[14px] text-[#292929] focus:outline-none"
+          {...rest}
+        />
+      ) : (
+        <input
+          type={type}
+          required={required}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          maxLength={maxLength}
+          className="w-full bg-transparent px-0 pb-4 text-[14px] text-[#292929] focus:outline-none"
+          {...rest}
+        />
+      )}
+
+      {error && (
+        <p className="mt-1 text-[12px] font-medium text-red-600 font-sans">
+          {error}
+        </p>
+      )}
+
+      {multiline && maxLength && (
+        <div className="text-right text-[11px] text-ink/40 font-sans pb-1">
+          {value?.length || 0} / {maxLength}
+        </div>
+      )}
     </div>
   );
 }
+
 
 function FindUsFAQ() {
   const faqs = [
@@ -454,7 +758,7 @@ function FindUsFAQ() {
           ========================== */}
           <div className="flex flex-col justify-center">
             <Reveal>
-            
+
 
               <h2 className="font-essonnes text-[38px] leading-tight text-brand-black1 sm:text-[46px] lg:text-[52px]">
                 Common

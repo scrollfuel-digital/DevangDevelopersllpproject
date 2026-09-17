@@ -991,7 +991,7 @@ const About = () => {
             className="
               mt-1
               grid
-              grid-cols-3
+              grid-cols-2
               gap-x-5
               gap-y-1
 
