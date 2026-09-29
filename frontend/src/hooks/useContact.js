@@ -10,6 +10,7 @@ import {
 } from "../atoms/contactAtom";
 
 import { submitContactRequest } from "../api/contactApi";
+import adminService from "../services/adminService";
 
 const parseBackendError = (err) => {
   if (!err?.response) {
@@ -117,6 +118,19 @@ export const useContact = (formKey = "CONTACT") => {
     setSuccess(false);
 
     try {
+      // Also save into admin local storage service so inquiry appears in Admin Panel
+      try {
+        adminService.addInquiry({
+          name: payload.name || payload.fullName || "Website Visitor",
+          email: payload.email || "",
+          phone: payload.phone || payload.mobile || "",
+          projectInterest: payload.projectInterest || payload.project || payload.subject || "Devang Real Estate",
+          message: payload.message || payload.comments || "",
+        });
+      } catch (e) {
+        console.warn("Failed to save to local admin service", e);
+      }
+
       const data = await submitContactRequest(payload);
 
       setResponse(data);
@@ -127,6 +141,7 @@ export const useContact = (formKey = "CONTACT") => {
         data,
       };
     } catch (err) {
+      // Even if backend fails, check if we captured locally
       const formattedError = parseBackendError(err);
 
       setError(formattedError);

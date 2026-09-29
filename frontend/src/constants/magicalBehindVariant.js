@@ -1,6 +1,4 @@
-/**
- * Framer motion animation variant for smooth blurred scale emergence.
- */
+
 export const magicalBehindVariant = (shouldReduceMotion) => ({
     hidden: {
         opacity: 0,

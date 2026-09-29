@@ -9,15 +9,11 @@ import {
 
 import bottomOrnament from "../../assets/herosection/down.png";
 
-/* =========================================================
-   VIDEO DATA
-========================================================= */
-
 const moments = [
   {
     title: "Poolside Serenity",
     video:
-      "https://res.cloudinary.com/mskkdqm6/video/upload/v1789539538/SwimmingPool.mp4",
+      "https://res.cloudinary.com/ds1y9wivv/video/upload/v1790664055/swimmingpool3_rc1ztl.mp4",
   },
   {
     title: "Cinematic Evenings",
@@ -32,7 +28,7 @@ const moments = [
   {
     title: "Evenings in Motion",
     video:
-      "https://res.cloudinary.com/mskkdqm6/video/upload/v1789539536/gamezone.mp4",
+      "https://res.cloudinary.com/ds1y9wivv/video/upload/v1790664167/GameZone2_f2hg2c.mp4",
   },
   {
     title: "A Grand Welcome",
@@ -45,7 +41,6 @@ const moments = [
       "https://res.cloudinary.com/mskkdqm6/video/upload/v1789539539/yoga2.mp4",
   },
 ];
-
 const DiscoverLife = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);

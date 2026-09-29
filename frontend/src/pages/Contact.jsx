@@ -22,7 +22,6 @@ import building from "../assets/projects/ongoingproject/image.png";
 import CTAButton from "../components/ui/CTAButton";
 import officeimage from "../assets/contact.png";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 function Reveal({ children, className = "", as: Tag = "div", delay = 0, y = 20, ...rest }) {

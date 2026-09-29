@@ -412,12 +412,6 @@ function Hero() {
   );
 }
 
-
-
-/* -------------------------------------------------------------------- */
-/*  Welcome — full-bleed image + glassmorphic panel                     */
-/* -------------------------------------------------------------------- */
-
 const stats = [
   { target: 25, suffix: "+", label: "Legacy" },
   { target: 500, suffix: "+", label: "Happy Families" },
@@ -1453,10 +1447,6 @@ function Amenities() {
   );
 }
 
-/* -------------------------------------------------------------------- */
-/*  Gallery                                                              */
-/* -------------------------------------------------------------------- */
-
 const galleryImages = {
   Interior: [IMG.gallery1, IMG.gallery2, IMG.gallery3, IMG.gallery4, IMG.gallery5, IMG.gallery6],
   Exterior: [IMG.galleryE2, IMG.galleryE3, IMG.galleryE1],
@@ -1781,10 +1771,6 @@ function Gallery() {
   );
 }
 
-
-/* -------------------------------------------------------------------- */
-/*  Contact                                                              */
-/* -------------------------------------------------------------------- */
 
 function Contact() {
   return (
