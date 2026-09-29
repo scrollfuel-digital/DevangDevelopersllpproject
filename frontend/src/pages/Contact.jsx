@@ -282,6 +282,7 @@ function Contactus() {
     success,
     error,
     response,
+    resetContactState,
   } = useContact("CONTACT");
 
   const [values, setValues] = useState({
@@ -297,6 +298,32 @@ function Contactus() {
   const turnstileRef = useRef(null);
   const turnstileSiteKey =
     import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA";
+
+  // Automatically return to the form 3 seconds after successful submission
+  useEffect(() => {
+    if (!success) return;
+
+    const timer = setTimeout(() => {
+      resetContactState();
+
+      setValues({
+        name: "",
+        mobile: "",
+        email: "",
+        message: "",
+      });
+
+      setTurnstileToken("");
+      setAgreed(false);
+      setClientErrors({});
+
+      try {
+        turnstileRef.current?.reset();
+      } catch { }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [success, resetContactState]);
 
   // Field change handler
   const handleChange = (field) => (e) => {
@@ -409,6 +436,7 @@ function Contactus() {
     setTurnstileToken("");
     setAgreed(false);
     setClientErrors({});
+
     try {
       turnstileRef.current?.reset();
     } catch { }
