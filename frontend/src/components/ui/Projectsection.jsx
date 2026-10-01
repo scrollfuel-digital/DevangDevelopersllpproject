@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import projectVideo from "../../assets/projects/ongoingproject/VideoProject9.mp4";
 import CTAButton from "./CTAButton";
@@ -224,6 +224,9 @@ const ProjectsSection = () => {
 
     const [direction, setDirection] = useState(1);
 
+    // Mobile tab references
+    const tabRefs = useRef({});
+
     /* =========================================================
        CURRENT PROJECT
     ========================================================= */
@@ -283,8 +286,28 @@ const ProjectsSection = () => {
         );
 
         setActiveArea(area);
-    };
 
+        // =========================================
+        // MOBILE ONLY
+        // Move selected tab towards left
+        // =========================================
+        if (
+            typeof window !== "undefined" &&
+            window.innerWidth < 768
+        ) {
+            requestAnimationFrame(() => {
+                const selectedTab = tabRefs.current[area];
+
+                if (selectedTab) {
+                    selectedTab.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest",
+                        inline: "start",
+                    });
+                }
+            });
+        }
+    };
     if (!project) {
         return null;
     }
@@ -303,7 +326,7 @@ const ProjectsSection = () => {
         <section
             className="
                 bg-brand-white
-                py-20
+                py-10
                 text-brand-black1
                 md:py-28
             "
@@ -326,7 +349,7 @@ const ProjectsSection = () => {
                     className="
                         flex
                         flex-col
-                        gap-6
+                        gap-3
                         md:flex-row
                         md:items-end
                         md:justify-between
@@ -366,81 +389,228 @@ const ProjectsSection = () => {
                     PROJECT TABS
                 ===================================================== */}
 
-                <div
-                    className="
-                        mt-10
-                        overflow-x-auto
-                        border-b
-                        border-brand-black1/10
-                        no-scrollbar
-                    "
-                >
+                {/* =====================================================
+    PROJECT TABS
+    ===================================================== */}
 
+                <div className="mt-6 md:mt-10">
+
+                    {/* =================================================
+        MOBILE AREA SELECTOR
+        One tab at a time + Previous / Next arrows
+        ================================================= */}
                     <div
                         className="
-                            flex
-                            min-w-max
-                            gap-15
-                            md:gap-21
-                        "
+            flex
+            items-center
+            justify-between
+            border-b
+            border-brand-black1/10
+            pb-0
+            md:hidden
+        "
                     >
 
-                        {AREAS.map((area) => {
+                        {/* PREVIOUS AREA */}
+                        <button
+                            type="button"
+                            disabled={projectIndex === 0}
+                            onClick={() => {
+                                if (projectIndex > 0) {
+                                    handleAreaChange(
+                                        PROJECTS[projectIndex - 1].area
+                                    );
+                                }
+                            }}
+                            className="
+                flex
+                h-12
+                w-12
+                shrink-0
+                items-center
+                justify-center
+                text-2xl
+                font-light
+                text-brand-black1
+                transition-all
+                duration-300
+                disabled:cursor-not-allowed
+                disabled:opacity-20
+            "
+                            aria-label="Previous area"
+                        >
+                            ←
+                        </button>
 
-                            const isActive =
-                                area === activeArea;
 
-                            return (
-                                <button
-                                    key={area}
-                                    type="button"
-                                    onClick={() =>
-                                        handleAreaChange(
-                                            area
-                                        )
-                                    }
-                                    className={`
-                                        relative
-                                        shrink-0
-                                        pb-4
-                                        font-sans
-                                        text-sm
-                                        font-bold
-                                        tracking-wide
-                                        transition-colors
-                                        duration-300
-                                        ${isActive
-                                            ? "text-brand-primary"
-                                            : "text-brand-black1/40 hover:text-brand-black1/70"
+                        {/* ACTIVE AREA */}
+                        <div
+                            className="
+                relative
+                flex
+                min-w-0
+                flex-1
+                items-center
+                justify-center
+                px-3
+            "
+                        >
+                            <span
+                                className="
+                    truncate
+                    pb-4
+                    pt-2
+                    text-center
+                    font-sans
+                    text-sm
+                    font-bold
+                    tracking-wide
+                    text-brand-primary
+                "
+                            >
+                                {activeArea}
+                            </span>
+
+                            {/* Active underline */}
+                            <motion.span
+                                layoutId="mobile-project-tab-line"
+                                className="
+                    absolute
+                    bottom-[-1px]
+                    left-1/2
+                    h-[2px]
+                    w-20
+                    -translate-x-1/2
+                    bg-brand-primary
+                "
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 32,
+                                }}
+                            />
+                        </div>
+
+
+                        {/* NEXT AREA */}
+                        <button
+                            type="button"
+                            disabled={
+                                projectIndex === PROJECTS.length - 1
+                            }
+                            onClick={() => {
+                                if (
+                                    projectIndex <
+                                    PROJECTS.length - 1
+                                ) {
+                                    handleAreaChange(
+                                        PROJECTS[projectIndex + 1].area
+                                    );
+                                }
+                            }}
+                            className="
+                flex
+                h-12
+                w-12
+                shrink-0
+                items-center
+                justify-center
+                text-2xl
+                font-light
+                text-brand-black1
+                transition-all
+                duration-300
+                disabled:cursor-not-allowed
+                disabled:opacity-20
+            "
+                            aria-label="Next area"
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+
+                    {/* =================================================
+        DESKTOP AREA TABS
+        Existing horizontal tabs
+        ================================================= */}
+                    <div
+                        className="
+            hidden
+            overflow-x-auto
+            border-b
+            border-brand-black1/10
+            no-scrollbar
+            md:block
+        "
+                    >
+                        <div
+                            className="
+                flex
+                min-w-max
+                gap-7
+                lg:gap-21
+            "
+                        >
+
+                            {AREAS.map((area) => {
+
+                                const isActive =
+                                    area === activeArea;
+
+                                return (
+                                    <button
+                                        key={area}
+                                        ref={(element) => {
+                                            tabRefs.current[area] =
+                                                element;
+                                        }}
+                                        type="button"
+                                        onClick={() =>
+                                            handleAreaChange(area)
                                         }
-                                    `}
-                                >
+                                        className={`
+                            relative
+                            shrink-0
+                            pb-4
+                            font-sans
+                            text-sm
+                            font-bold
+                            tracking-wide
+                            transition-colors
+                            duration-300
+                            ${isActive
+                                                ? "text-brand-primary"
+                                                : "text-brand-black1/40 hover:text-brand-black1/70"
+                                            }
+                        `}
+                                    >
+                                        {area}
 
-                                    {area}
+                                        {isActive && (
+                                            <motion.span
+                                                layoutId="project-tab-line"
+                                                className="
+                                    absolute
+                                    bottom-[-1px]
+                                    left-0
+                                    right-0
+                                    h-[2px]
+                                    bg-brand-primary
+                                "
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 400,
+                                                    damping: 32,
+                                                }}
+                                            />
+                                        )}
+                                    </button>
+                                );
+                            })}
 
-                                    {isActive && (
-                                        <motion.span
-                                            layoutId="project-tab-line"
-                                            className="
-                                                absolute
-                                                bottom-[-1px]
-                                                left-0
-                                                right-0
-                                                h-[2px]
-                                                bg-brand-primary
-                                            "
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 400,
-                                                damping: 32,
-                                            }}
-                                        />
-                                    )}
-
-                                </button>
-                            );
-                        })}
-
+                        </div>
                     </div>
 
                 </div>
@@ -449,7 +619,7 @@ const ProjectsSection = () => {
                     PROJECT SHOWCASE
                 ===================================================== */}
 
-                <div className="mt-12">
+                <div className="mt-6 md:mt-12">
 
                     <AnimatePresence
                         mode="wait"
@@ -490,7 +660,7 @@ const ProjectsSection = () => {
                                 grid
                                 grid-cols-1
                                 items-center
-                                gap-8
+                                gap-5
                                 md:grid-cols-2
                                 md:gap-14
                                 lg:gap-20
@@ -617,16 +787,17 @@ const ProjectsSection = () => {
 
                                 <div
                                     className="
-                                        my-7
-                                        h-px
-                                        w-full
-                                        bg-brand-black1/10
-                                    "
+        my-4
+        h-px
+        w-full
+        bg-brand-black1/10
+        md:my-7
+    "
                                 />
 
                                 {/* FEATURES */}
 
-                                <ul className="space-y-4">
+                                <ul className="space-y-3 md:space-y-4">
 
                                     {project.features.map(
                                         (feature) => (
@@ -690,14 +861,15 @@ const ProjectsSection = () => {
 
                     <div
                         className="
-                            mt-10
-                            flex
-                            items-center
-                            justify-between
-                            border-t
-                            border-brand-black1/10
-                            pt-6
-                        "
+        mt-6
+        hidden
+        items-center
+        justify-between
+        border-t
+        border-brand-black1/10
+        pt-6
+        md:flex
+    "
                     >
 
                         {/* PREVIOUS */}
