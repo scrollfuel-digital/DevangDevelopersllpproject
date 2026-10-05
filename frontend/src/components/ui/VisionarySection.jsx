@@ -18,14 +18,7 @@ import kirtiBhaiImg from "../../assets/aboutussectionpage/kirti-bhai.jpeg";
 import { magicalBehindVariant } from "../../constants/magicalBehindVariant";
 
 const foundingPartners = [
-    {
-        id: "dr-sunil-patil",
-        name: "Dr. Sunil N. Patil",
-        role: "Director & Co-Founder",
-        image: leaderSunil,
-        bio: "Championing structural strength, material standards, and strategic growth. Committed to delivering homes that stand the test of time.",
-        quote: "Excellence is never an accident; it is always the result of high intention.",
-    },
+   
     {
         id: "mr-hemal-nadiyana",
         name: "Mr. Hemal H. Nadiyana",
