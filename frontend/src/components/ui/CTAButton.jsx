@@ -17,10 +17,29 @@ export default function CTAButton({
   disabled = false,
   onClick,
   loading = false,
+  target,
+  rel,
+  download = false,
+  downloadName,
 }) {
-  // If type is "submit" or explicitly "button" without "to", render button element
-  const isButtonElement = type === "submit" || (type === "button" && !to) || (!to && onClick);
+  // =========================================================
+  // CHECK EXTERNAL LINK
+  // =========================================================
+  const isExternalLink =
+    typeof to === "string" &&
+    (to.startsWith("http://") || to.startsWith("https://"));
 
+  // =========================================================
+  // CHECK BUTTON ELEMENT
+  // =========================================================
+  const isButtonElement =
+    type === "submit" ||
+    (type === "button" && !to) ||
+    (!to && onClick);
+
+  // =========================================================
+  // BUTTON CONTENT
+  // =========================================================
   const innerContent = (
     <>
       {/* Offset border */}
@@ -108,7 +127,10 @@ export default function CTAButton({
               transition-all
               duration-500
               ease-[cubic-bezier(0.22,1,0.36,1)]
-              ${disabled || loading ? "" : "group-hover:w-[18px] group-hover:translate-x-0 group-hover:opacity-100"}
+              ${disabled || loading
+                ? ""
+                : "group-hover:w-[18px] group-hover:translate-x-0 group-hover:opacity-100"
+              }
             `}
             strokeWidth={2}
           />
@@ -117,14 +139,15 @@ export default function CTAButton({
     </>
   );
 
+  // =========================================================
+  // BUTTON SIZE / STYLE
+  // =========================================================
   const elementClasses = `
     group
     relative
     inline-flex
     h-[52px]
-    /* MOBILE */
     w-[200px]
-    /* LAPTOP / DESKTOP */
     sm:w-[250px]
     items-center
     justify-center
@@ -132,6 +155,9 @@ export default function CTAButton({
     ${disabled || loading ? "cursor-not-allowed" : "cursor-pointer"}
   `;
 
+  // =========================================================
+  // RENDER
+  // =========================================================
   return (
     <motion.div
       variants={itemAnimation}
@@ -141,6 +167,9 @@ export default function CTAButton({
       }}
       className={` ${className}`}
     >
+      {/* =====================================================
+          1. NORMAL BUTTON
+      ====================================================== */}
       {isButtonElement ? (
         <button
           type={type || "button"}
@@ -150,7 +179,45 @@ export default function CTAButton({
         >
           {innerContent}
         </button>
+      ) : download ? (
+        /* =====================================================
+           2. DOWNLOAD FILE
+        ====================================================== */
+        <a
+          href={to}
+          download={downloadName || true}
+          className={elementClasses}
+          aria-disabled={disabled || loading}
+          onClick={(e) => {
+            if (disabled || loading) {
+              e.preventDefault();
+            }
+          }}
+        >
+          {innerContent}
+        </a>
+      ) : isExternalLink ? (
+        /* =====================================================
+           3. EXTERNAL URL → OPEN NEW TAB
+        ====================================================== */
+        <a
+          href={to}
+          target={target || "_blank"}
+          rel={rel || "noopener noreferrer"}
+          className={elementClasses}
+          aria-disabled={disabled || loading}
+          onClick={(e) => {
+            if (disabled || loading) {
+              e.preventDefault();
+            }
+          }}
+        >
+          {innerContent}
+        </a>
       ) : (
+        /* =====================================================
+           4. INTERNAL REACT ROUTER LINK
+        ====================================================== */
         <Link
           to={to || "/about"}
           className={elementClasses}

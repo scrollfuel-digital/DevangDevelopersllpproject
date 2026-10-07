@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { X, ArrowUpRight } from "lucide-react";
 
 import leaderHemal from "../../assets/aboutussectionpage/hemal.jpeg";
-import leaderSunil from "../../assets/aboutussectionpage/sunil.png";
 
 // Team Images
 import milindNadiyanaImg from "../../assets/aboutussectionpage/milind.jpeg";
@@ -14,11 +13,11 @@ import pJaykrishnanImg from "../../assets/aboutussectionpage/jaykrishnan.jpeg";
 import sandipShastriImg from "../../assets/aboutussectionpage/sandip.jpeg";
 import riteshBhaiImg from "../../assets/aboutussectionpage/ritesh-bhai.jpeg";
 import kirtiBhaiImg from "../../assets/aboutussectionpage/kirti-bhai.jpeg";
-
+import mrKaranMehendrattaImg from "../../assets/aboutussectionpage/karan-mehendratta.jpeg";
 import { magicalBehindVariant } from "../../constants/magicalBehindVariant";
 
 const foundingPartners = [
-   
+
     {
         id: "mr-hemal-nadiyana",
         name: "Mr. Hemal H. Nadiyana",
@@ -33,14 +32,159 @@ const foundingPartners = [
    TEAM
 ========================================================= */
 
+// const teamMembers = [
+//     {
+//         id: "mr-milind-nadiyana",
+//         name: "Mr. Milind Nadiyana",
+//         role: "Architect & Elevation Designer",
+//         category: "structural",
+//         image: milindNadiyanaImg,
+//         experience: "16+ Years",
+//         badge: "Master Architect",
+//         expertise: [
+//             "Neo-Classical Facades",
+//             "Efficient Space Layouts",
+//             "Natural Light & Air Grid",
+//         ],
+//         bio: "Pioneers the neo-classical elevation design and optimized space layout plans that define the iconic visual identity of Riddhi Siddhi 3 and Devang landmarks.",
+//     },
+
+//     {
+//         id: "mr-amit-agrawal",
+//         name: "Mr. Amit Agrawal",
+//         role: "Chief Financial & Commercial Officer",
+//         category: "engineering",
+//         image: amitAgrawalImg,
+//         experience: "17+ Years",
+//         badge: "Finance Head",
+//         expertise: [
+//             "Bank Loan Tie-ups",
+//             "Commercial Strategy",
+//             "Customer Financial Desk",
+//         ],
+//         bio: "Directs financial planning, institutional project funding, and seamless home loan approvals with major nationalized banks for buyers.",
+//     },
+
+//     {
+//         id: "mr-ps-pathankar",
+//         name: "Mr. P.S. Pathankar",
+//         role: "Principal Structural Engineering Advisor",
+//         category: "structural",
+//         image: psPathankarImg,
+//         experience: "20+ Years",
+//         badge: "Chartered Engineer",
+//         expertise: [
+//             "RCC Earthquake Design",
+//             "Fe550 Steel Audits",
+//             "Load Distribution Matrix",
+//         ],
+//         bio: "Over 20 years of expertise in high-rise civil structural analysis, ensuring all Devang developments withstand seismic forces and comply with stringent IS code civil standards.",
+//     },
+
+//     {
+//         id: "mr-ritesh-mehta",
+//         name: "Mr. Ritesh Mehta",
+//         role: "Senior Project Operations Head",
+//         category: "engineering",
+//         image: riteshMehtaImg,
+//         experience: "15+ Years",
+//         badge: "Civil Operations",
+//         expertise: [
+//             "Concrete Mix Testing",
+//             "On-Site Safety Grid",
+//             "Quality Assurance",
+//         ],
+//         bio: "Manages day-to-day civil construction, raw material quality testing, and structural execution on site to guarantee timely project milestones.",
+//     },
+
+//     {
+//         id: "p-jaykrishnan",
+//         name: "P. Jaykrishnan",
+//         role: "Quality Control & MEP Advisory Head",
+//         category: "structural",
+//         image: pJaykrishnanImg,
+//         experience: "16+ Years",
+//         badge: "MEP Specialist",
+//         expertise: [
+//             "Hydro-Pneumatic Plumbing",
+//             "Substation Grid Design",
+//             "Waterproofing Standards",
+//         ],
+//         bio: "Oversees Mechanical, Electrical, and Plumbing infrastructure, ensuring high-capacity DG power backup, eco rainwater systems, and advanced MEP engineering.",
+//     },
+
+//     {
+//         id: "adv-sandip-shastri",
+//         name: "Adv. Sandip Shastri",
+//         role: "Senior Legal & MahaRERA Compliance Counsel",
+//         category: "legal",
+//         image: sandipShastriImg,
+//         experience: "22+ Years",
+//         badge: "Legal Stalwart",
+//         expertise: [
+//             "MahaRERA Registrations",
+//             "Clear Title Certification",
+//             "Escrow Protocols",
+//         ],
+//         bio: "Specializes in regulatory MahaRERA compliance and conveyance, ensuring clear title ownership, property documentation, and customer agreement transparency.",
+//     },
+
+//     {
+//         id: "ritesh-bhai",
+//         name: "Ritesh Bhai",
+//         role: "Co-Founder & Executive Partner",
+//         category: "founders",
+//         image: riteshBhaiImg,
+//         experience: "18+ Years",
+//         badge: "Core Leadership",
+//         expertise: [
+//             "Strategic Growth",
+//             "Land Acquisition",
+//             "Partner Relations",
+//         ],
+//         bio: "Co-founding leadership driving strategic growth, land acquisition, and key stakeholder partnerships across premier residential developments.",
+//     },
+
+//     {
+//         id: "kirti-bhai",
+//         name: "Kirti Bhai",
+//         role: "Co-Founder & Advisory Board Member",
+//         category: "founders",
+//         image: kirtiBhaiImg,
+//         experience: "18+ Years",
+//         badge: "Founding Board",
+//         expertise: [
+//             "Corporate Governance",
+//             "Visionary Leadership",
+//             "Brand Heritage",
+//         ],
+//         bio: "Founding board member guiding Devang Developers' corporate governance, ethics, and enduring legacy across Nagpur.",
+//     },
+// ];
+
+/* =========================================================
+   TEAM
+   SEQUENCE:
+   1. ARCHITECT
+   2. STRUCTURAL CONSULTANT
+   3. RERA CONSULTANT
+   4. LEGAL CONSULTANT
+   5. COMPANY CA
+   6. GST CONSULTANT
+   7. VASTU CONSULTANT
+========================================================= */
+
 const teamMembers = [
+    /* =====================================================
+       1. ARCHITECT
+    ===================================================== */
     {
         id: "mr-milind-nadiyana",
         name: "Mr. Milind Nadiyana",
         role: "Architect & Elevation Designer",
-        category: "structural",
+        category: "architect",
         image: milindNadiyanaImg,
-        experience: "16+ Years",
+        experience: "",
         badge: "Master Architect",
         expertise: [
             "Neo-Classical Facades",
@@ -50,120 +194,120 @@ const teamMembers = [
         bio: "Pioneers the neo-classical elevation design and optimized space layout plans that define the iconic visual identity of Riddhi Siddhi 3 and Devang landmarks.",
     },
 
-    {
-        id: "mr-amit-agrawal",
-        name: "Mr. Amit Agrawal",
-        role: "Chief Financial & Commercial Officer",
-        category: "engineering",
-        image: amitAgrawalImg,
-        experience: "17+ Years",
-        badge: "Finance Head",
-        expertise: [
-            "Bank Loan Tie-ups",
-            "Commercial Strategy",
-            "Customer Financial Desk",
-        ],
-        bio: "Directs financial planning, institutional project funding, and seamless home loan approvals with major nationalized banks for buyers.",
-    },
-
+    /* =====================================================
+       2. STRUCTURAL CONSULTANT
+    ===================================================== */
     {
         id: "mr-ps-pathankar",
         name: "Mr. P.S. Pathankar",
-        role: "Principal Structural Engineering Advisor",
+        role: "Structural Consultant",
         category: "structural",
         image: psPathankarImg,
-        experience: "20+ Years",
+        experience: "",
         badge: "Chartered Engineer",
         expertise: [
             "RCC Earthquake Design",
             "Fe550 Steel Audits",
             "Load Distribution Matrix",
         ],
-        bio: "Over 20 years of expertise in high-rise civil structural analysis, ensuring all Devang developments withstand seismic forces and comply with stringent IS code civil standards.",
+        bio: "With over 20 years of expertise in structural engineering, P.S. Pathankar provides structural consultancy and technical guidance to ensure safe, durable and code-compliant developments.",
     },
 
+    /* =====================================================
+       3. RERA CONSULTANT
+    ===================================================== */
     {
-        id: "mr-ritesh-mehta",
-        name: "Mr. Ritesh Mehta",
-        role: "Senior Project Operations Head",
-        category: "engineering",
-        image: riteshMehtaImg,
-        experience: "15+ Years",
-        badge: "Civil Operations",
+        id: "mr-karan-mehendiratta",
+        name: "Mr. Karan Mehendiratta",
+        role: "RERA Consultant",
+        category: "rera",
+        image: mrKaranMehendrattaImg,
+        experience: "",
+        badge: "RERA Consultant",
         expertise: [
-            "Concrete Mix Testing",
-            "On-Site Safety Grid",
-            "Quality Assurance",
+            "MahaRERA Compliance",
+            "Project Registration",
+            "Regulatory Advisory",
         ],
-        bio: "Manages day-to-day civil construction, raw material quality testing, and structural execution on site to guarantee timely project milestones.",
+        bio: "Provides professional RERA consultancy and regulatory guidance, supporting project registration, compliance and documentation requirements.",
     },
 
-    {
-        id: "p-jaykrishnan",
-        name: "P. Jaykrishnan",
-        role: "Quality Control & MEP Advisory Head",
-        category: "structural",
-        image: pJaykrishnanImg,
-        experience: "16+ Years",
-        badge: "MEP Specialist",
-        expertise: [
-            "Hydro-Pneumatic Plumbing",
-            "Substation Grid Design",
-            "Waterproofing Standards",
-        ],
-        bio: "Oversees Mechanical, Electrical, and Plumbing infrastructure, ensuring high-capacity DG power backup, eco rainwater systems, and advanced MEP engineering.",
-    },
-
+    /* =====================================================
+       4. LEGAL CONSULTANT
+    ===================================================== */
     {
         id: "adv-sandip-shastri",
-        name: "Adv. Sandip Shastri",
-        role: "Senior Legal & MahaRERA Compliance Counsel",
+        name: "Sandeep Shashtri sir",
+        role: "Legal Consultant",
         category: "legal",
         image: sandipShastriImg,
-        experience: "22+ Years",
+        experience: "",
         badge: "Legal Stalwart",
         expertise: [
             "MahaRERA Registrations",
             "Clear Title Certification",
-            "Escrow Protocols",
+            "Property Documentation",
         ],
-        bio: "Specializes in regulatory MahaRERA compliance and conveyance, ensuring clear title ownership, property documentation, and customer agreement transparency.",
+        bio: "Specializes in property law, MahaRERA compliance, title documentation and legal advisory, helping ensure transparency and regulatory compliance across developments.",
     },
 
+    /* =====================================================
+       5. COMPANY CA
+    ===================================================== */
     {
-        id: "ritesh-bhai",
-        name: "Ritesh Bhai",
-        role: "Co-Founder & Executive Partner",
-        category: "founders",
-        image: riteshBhaiImg,
-        experience: "18+ Years",
-        badge: "Core Leadership",
+        id: "p-jaykrishnan",
+        name: "CA P. JAYKRISHNAN",
+        role: "Company CA",
+        category: "company-ca",
+        image: pJaykrishnanImg,
+        experience: "",
+        badge: "Company CA",
         expertise: [
-            "Strategic Growth",
-            "Land Acquisition",
-            "Partner Relations",
+            "Financial Advisory",
+            "Corporate Compliance",
+            "Tax Planning",
         ],
-        bio: "Co-founding leadership driving strategic growth, land acquisition, and key stakeholder partnerships across premier residential developments.",
+        bio: "Provides professional financial and corporate advisory support, helping maintain strong financial governance and compliance across the organization.",
     },
 
+    /* =====================================================
+       6. GST CONSULTANT
+    ===================================================== */
+    {
+        id: "ca-ritesh-mehta",
+        name: "CA Ritesh Mehta",
+        role: "GST Consultant",
+        category: "gst",
+        image: riteshMehtaImg,
+        experience: "",
+        badge: "GST Consultant",
+        expertise: [
+            "GST Compliance",
+            "Tax Advisory",
+            "Real Estate Taxation",
+        ],
+        bio: "Provides GST and taxation advisory for real-estate operations, supporting compliance, documentation and efficient tax management.",
+    },
+
+    /* =====================================================
+       7. VASTU CONSULTANT
+    ===================================================== */
     {
         id: "kirti-bhai",
         name: "Kirti Bhai",
-        role: "Co-Founder & Advisory Board Member",
-        category: "founders",
+        role: "Vastu Consultant",
+        category: "vastu",
         image: kirtiBhaiImg,
-        experience: "18+ Years",
-        badge: "Founding Board",
+        experience: "",
+        badge: "Vastu Consultant",
         expertise: [
-            "Corporate Governance",
-            "Visionary Leadership",
-            "Brand Heritage",
+            "Vastu Planning",
+            "Space Alignment",
+            "Residential Planning",
         ],
-        bio: "Founding board member guiding Devang Developers' corporate governance, ethics, and enduring legacy across Nagpur.",
+        bio: "Provides Vastu guidance for residential planning and spatial alignment, supporting balanced and thoughtfully planned living environments.",
     },
 ];
-
-
 /* =========================================================
    FOUNDER FRAME (ornamental corner-bracket portrait frame)
 ========================================================= */
@@ -199,29 +343,145 @@ function FounderCard({ founder, index }) {
         <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
+            transition={{
+                duration: 0.7,
+                delay: index * 0.15,
+                ease: "easeOut",
+            }}
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col items-center px-4 py-4 text-center sm:px-8"
+            className="
+                mx-auto
+                flex
+                w-full
+                max-w-5xl
+                flex-col
+                items-center
+                gap-10
+                px-4
+                py-8
+                text-center
+
+                md:flex-row
+                md:items-center
+                md:gap-16
+                md:px-8
+                md:py-12
+                md:text-left
+            "
         >
-            <FounderFrame image={founder.image} name={founder.name} />
+            {/* =================================================
+                FOUNDER IMAGE
+            ================================================= */}
 
-            <h4 className="!mt-10 font-essonnes text-xl leading-tight text-black sm:text-xl">
-                {founder.name}
-            </h4>
+            <div className="w-full shrink-0 md:w-[320px]">
+                <FounderFrame
+                    image={founder.image}
+                    name={founder.name}
+                />
+            </div>
 
-            <span className="mt-2 font-body text-xs font-semibold uppercase tracking-[0.25em] text-brand-primary-deep">
-                {founder.role}
-            </span>
+            {/* =================================================
+                FOUNDER INFORMATION
+            ================================================= */}
 
+            <div className="flex w-full flex-col justify-center">
 
-            <blockquote className="mt-6 w-full max-w-sm border-t border-black/15 pt-5">
-                <p className="font-essonnes text-lg italic leading-relaxed text-black/85">
-                    &ldquo;{founder.quote}&rdquo;
+                {/* Label */}
+                <span
+                    className="
+                        text-xs
+                        font-semibold
+                        uppercase
+                        tracking-[0.3em]
+                        text-[#B9935A]
+                    "
+                >
+                    Founder & Leadership
+                </span>
+
+                {/* Name */}
+                <h4
+                    className="
+                        mt-4
+                        font-essonnes
+                        text-3xl
+                        leading-tight
+                        text-black
+
+                        sm:text-4xl
+                        md:text-5xl
+                    "
+                >
+                    {founder.name}
+                </h4>
+
+                {/* Role */}
+                <span
+                    className="
+                        mt-3
+                        block
+                        font-body
+                        text-xs
+                        font-semibold
+                        uppercase
+                        tracking-[0.25em]
+                        text-brand-primary-deep
+
+                        sm:text-sm
+                    "
+                >
+                    {founder.role}
+                </span>
+
+                {/* Divider */}
+                <div className="my-6 h-px w-20 bg-[#B9935A]" />
+
+                {/* Bio */}
+                <p
+                    className="
+                        max-w-2xl
+                        text-sm
+                        leading-7
+                        text-black/60
+
+                        sm:text-base
+                        sm:leading-8
+                    "
+                >
+                    {founder.bio}
                 </p>
-            </blockquote>
+
+                {/* Quote */}
+                {founder.quote && (
+                    <blockquote
+                        className="
+                            mt-7
+                            border-l-2
+                            border-[#B9935A]
+                            pl-5
+                        "
+                    >
+                        <p
+                            className="
+                                font-essonnes
+                                text-lg
+                                italic
+                                leading-relaxed
+                                text-black/80
+
+                                sm:text-xl
+                            "
+                        >
+                            &ldquo;{founder.quote}&rdquo;
+                        </p>
+                    </blockquote>
+                )}
+
+            </div>
         </motion.div>
     );
 }
+
 
 
 /* =========================================================
@@ -448,7 +708,7 @@ export default function VisionarySection() {
                         </p>
                     </motion.div>
 
-                    <div className="mx-auto mt-16 grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+                    <div className="mx-auto mt-16 w-full">
                         {foundingPartners.map((founder, index) => (
                             <FounderCard
                                 key={founder.id}

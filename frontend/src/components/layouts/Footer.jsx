@@ -196,7 +196,7 @@ const Footer = () => {
                 </div>
 
                 <span className="block max-w-[220px] font-bold leading-snug text-black/50 sm:max-w-none">
-                  32-A, Deep Apt, Pande Layout, Khamla Road, Nagpur
+                  Arpit Shrusti, 24, Tatya Tope Nagar, Nagpur, Maharashtra 440015
                 </span>
               </div>
             </div>
@@ -220,7 +220,7 @@ const Footer = () => {
             <div className="relative w-full h-[160px] sm:h-[180px] lg:h-[200px] rounded-2xl overflow-hidden shadow-md bg-white group">
               <iframe
                 title="Riddhi Siddhi 3 Location Map"
-                src="https://maps.google.com/maps?q=21.106284,79.061423&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.9406558372366!2d79.06080847525895!3d21.114931980556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4bf8083cbb019%3A0x14debf7a1aaf181a!2sDevang%20Developers%20LLP!5e0!3m2!1sen!2sin!4v1791371005186!5m2!1sen!2sin"
                 className="w-[135%] h-[165%] -mt-12 -ml-12 border-0 pointer-events-none transition-all duration-500"
                 loading="lazy"
               />

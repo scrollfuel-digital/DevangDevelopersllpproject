@@ -753,114 +753,12 @@ function FloatingField({
 
 
 function FindUsFAQ() {
-  const faqs = [
-    {
-      q: "Can I schedule a site visit?",
-      a: "Yes — call or WhatsApp the office and we'll arrange a visit at a time that works for you, including weekends.",
-    },
-    {
-      q: "Do you assist with home loans?",
-      a: "We work with a panel of banks and NBFCs and can help you get pre-approval and sanction paperwork moving.",
-    },
-    {
-      q: "Is the project RERA registered?",
-      a: "Every ongoing project is registered under RERA. Registration numbers are shared at the time of booking and are available on request.",
-    },
-    {
-      q: "What documents do I need to book a unit?",
-      a: "PAN card, address proof, and passport-size photographs to begin; our team will guide you through the rest step by step.",
-    },
-  ];
-
-  const [open, setOpen] = useState(null);
+ 
 
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-[1640px] px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-24">
-
-          {/* =========================
-              LEFT — FAQ
-          ========================== */}
-          <div className="flex flex-col justify-center">
-            <Reveal>
-
-
-              <h2 className="font-essonnes text-[38px] leading-tight text-brand-black1 sm:text-[46px] lg:text-[52px]">
-                Common
-                <br />
-                <span className="text-brand-primary">
-                  Questions
-                </span>
-              </h2>
-            </Reveal>
-
-            <Reveal
-              delay={0.1}
-              className="mt-8"
-            >
-              <div className="divide-y divide-[#E2D4BC] border-y border-[#E2D4BC]">
-                {faqs.map((item, i) => {
-                  const isOpen = open === i;
-
-                  return (
-                    <div key={item.q}>
-                      <button
-                        type="button"
-                        onClick={() => setOpen(isOpen ? null : i)}
-                        className="
-                          flex w-full
-                          items-center
-                          justify-between
-                          gap-6
-                          py-5
-                          text-left
-                          font-sans
-                        "
-                      >
-                        <span
-                          className="
-                            text-[15px]
-                            font-medium
-                            text-brand-black1
-                            sm:text-[16px]
-                          "
-                        >
-                          {item.q}
-                        </span>
-
-                        <Plus
-                          size={19}
-                          strokeWidth={1.5}
-                          className={`
-                            shrink-0
-                            text-brand-primary
-                            transition-transform
-                            duration-300
-                            ${isOpen ? "rotate-45" : ""}
-                          `}
-                        />
-                      </button>
-
-                      <div
-                        className="grid overflow-hidden transition-all duration-300 ease-out"
-                        style={{
-                          gridTemplateRows: isOpen ? "1fr" : "0fr",
-                        }}
-                      >
-                        <div className="overflow-hidden">
-                          <p className="pb-5 pr-10 font-sans text-[14px] leading-7 text-brand-black1/60 sm:text-[15px]">
-                            {item.a}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Reveal>
-          </div>
 
           {/* =========================
               RIGHT — MAP
@@ -888,14 +786,12 @@ function FindUsFAQ() {
             >
               <iframe
                 title="Devang Developers office location"
-                src="https://www.google.com/maps?q=Khamla+Road,+Nagpur,+Maharashtra+440015&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.9406558372366!2d79.06080847525895!3d21.114931980556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4bf8083cbb019%3A0x14debf7a1aaf181a!2sDevang%20Developers%20LLP!5e0!3m2!1sen!2sin!4v1791371005186!5m2!1sen!2sin"
                 className="h-full w-full grayscale-[15%]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-            </Reveal>
-
-          </div>
+              </Reveal>
 
         </div>
       </div>

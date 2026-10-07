@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -71,92 +72,57 @@ function Reveal({
 const POSTS = [
   {
     id: 1,
-    title: "Why Khamla Road Is Becoming Nagpur's Address of Choice",
-    date: "August 31, 2026",
+    slug: "wish-to-buy-a-property-in-nagpur-heres-what-you-should-look-for",
+    title:
+      "Wish To Buy A Property in Nagpur? Here’s What You Should Look For",
+    date: "October 7, 2026",
     excerpt:
-      "Khamla Road's shift from a quiet arterial to one of Nagpur's most sought-after residential stretches didn't happen overnight. Here's what's driving the change.",
+      "Buying a home in Nagpur? From location and budget to legal documents and developer credentials, here are the key checks buyers should make before signing a property deal.",
     img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400&auto=format&fit=crop",
   },
 
   {
     id: 2,
-    title: "RERA, Explained: What a Nagpur Homebuyer Should Actually Check",
-    date: "August 28, 2026",
+    slug: "ready-to-move-vs-under-construction-flats-what-should-homebuyers-consider",
+    title:
+      "Ready-to-Move vs Under-Construction Flats: What Should Homebuyers Consider?",
+    date: "October 7, 2026",
     excerpt:
-      "A registration number on a brochure isn't the whole story. Here's what the RERA filing for a project can tell you before you sign anything.",
-    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1400&auto=format&fit=crop",
+      "Buying a flat? Understanding the differences between ready-to-move and under-construction properties can help homebuyers compare costs, timelines, risks and practical requirements before making a decision.",
+    img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1400&auto=format&fit=crop",
   },
 
   {
     id: 3,
-    title: "Rooftop Living: Inside the 11th-Floor Amenity Deck",
-    date: "August 22, 2026",
+    slug: "buying-a-flat-in-nagpur-10-things-homebuyers-should-check",
+    title:
+      "Buying a Flat in Nagpur: 10 Things Homebuyers Should Check Before Making a Decision",
+    date: "October 7, 2026",
     excerpt:
-      "Moving amenities off the ground floor and onto the roof changes more than the view. It changes how residents actually use the space, day to day.",
-    img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1400&auto=format&fit=crop",
+      "Planning to buy a flat in Nagpur? From location and budget to carpet area, legal documents and developer credentials, here are 10 factors homebuyers should evaluate before making a property decision.",
+    img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1400&auto=format&fit=crop",
   },
 
   {
     id: 4,
-    title: "Puzzle Parking, Explained: How a 4-Level Automated System Works",
-    date: "August 17, 2026",
+    slug: "how-to-choose-the-right-location-when-buying-a-flat-in-nagpur",
+    title:
+      "How to Choose the Right Location When Buying a Flat in Nagpur",
+    date: "October 7, 2026",
     excerpt:
-      "Automated parking sounds futuristic until you're stuck waiting for your car. Here's how a well-designed puzzle system avoids that entirely.",
-    img: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?q=80&w=1400&auto=format&fit=crop",
+      "Location is one of the most important factors when buying a home. Here’s what Nagpur homebuyers should consider beyond price and project amenities.",
+    img: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=1400&auto=format&fit=crop",
   },
 
   {
     id: 5,
-    title: "Rental Yields Along the London Street Corridor",
-    date: "August 10, 2026",
+    slug: "what-makes-a-flat-a-good-long-term-home",
+    title:
+      "What Makes a Flat a Good Long-Term Home? 8 Factors Homebuyers Should Consider",
+    date: "October 7, 2026",
     excerpt:
-      "For investors weighing Nagpur against the usual metro suburbs, the numbers along this corridor tell a more interesting story than you'd expect.",
-    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1400&auto=format&fit=crop",
-  },
-
-  {
-    id: 6,
-    title: "From Foundation to Facade: Building Riddhi Siddhi III",
-    date: "August 3, 2026",
-    excerpt:
-      "A look at the structural decisions — from raft foundations to curtain glazing — that go into a Devang Developers project before a single unit is sold.",
-    img: "https://images.unsplash.com/photo-1541976590-713941681591?q=80&w=1400&auto=format&fit=crop",
-  },
-
-  {
-    id: 7,
-    title: "2BHK or 3BHK? A Practical Way to Decide",
-    date: "July 27, 2026",
-    excerpt:
-      "The honest answer depends less on budget and more on how your household actually uses a home. A framework for making the call.",
-    img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1400&auto=format&fit=crop",
-  },
-
-  {
-    id: 8,
-    title: "25 Years On: The Philosophy Behind Every Devang Address",
-    date: "July 19, 2026",
-    excerpt:
-      "Devang Developers has built through three decades of change in Nagpur's skyline. What's stayed constant is a narrower set of decisions than you'd think.",
-    img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1400&auto=format&fit=crop",
-  },
-
-  {
-    id: 9,
-    title: "How Modern Homes Are Changing Everyday Living",
-    date: "July 12, 2026",
-    excerpt:
-      "Modern residential architecture is increasingly focused on comfort, natural light, thoughtful layouts and spaces that support everyday living.",
-    img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1400&auto=format&fit=crop",
-  },
-
-  {
-    id: 10,
-    title: "What Makes a Premium Residential Address?",
-    date: "July 5, 2026",
-    excerpt:
-      "A premium address is about more than an impressive facade. Location, planning, amenities, craftsmanship and long-term value all play a role.",
-    img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1400&auto=format&fit=crop",
+      "Buying a flat is a long-term decision. From location and layout to construction quality and maintenance, these are the factors homebuyers should evaluate before choosing a home.",
+    img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1400&auto=format&fit=crop",
   },
 ];
 
@@ -219,7 +185,7 @@ function BlogHero() {
           From Devang Developers
         </p>
 
-        <h1
+        <h3
           className="
             mt-2
             font-serif
@@ -231,7 +197,7 @@ function BlogHero() {
           "
         >
           The Journal
-        </h1>
+        </h3>
 
         <p
           className="
@@ -264,9 +230,10 @@ function PostRow({ post, isFirst }) {
         py-8
         sm:py-10
 
-        ${isFirst
-          ? ""
-          : "border-t border-brand-primary/15"
+        ${
+          isFirst
+            ? ""
+            : "border-t border-brand-primary/15"
         }
       `}
     >
@@ -290,7 +257,7 @@ function PostRow({ post, isFirst }) {
         {/* ========================================================== */}
 
         <a
-          href="#"
+          href={`/blog/${post.slug}`}
           className="
             group
             block
@@ -298,6 +265,7 @@ function PostRow({ post, isFirst }) {
             rounded-sm
             bg-gray-100
           "
+          aria-label={`Read ${post.title}`}
         >
           <div
             className="
@@ -313,8 +281,8 @@ function PostRow({ post, isFirst }) {
               className="
                 h-full
                 w-full
-                object-cover
                 rounded
+                object-cover
                 transition-transform
                 duration-700
                 ease-out
@@ -344,7 +312,7 @@ function PostRow({ post, isFirst }) {
           </span>
 
           {/* Title */}
-          <h6
+          <h4
             className="
               mt-3
               max-w-[700px]
@@ -359,7 +327,7 @@ function PostRow({ post, isFirst }) {
             "
           >
             {post.title}
-          </h6>
+          </h4>
 
           {/* Description */}
           <p
@@ -378,7 +346,7 @@ function PostRow({ post, isFirst }) {
 
           {/* Read More */}
           <a
-            href="#"
+            href={`/blog/${post.slug}`}
             className="
               group/read
               mt-5
@@ -610,7 +578,7 @@ function Sidebar({
               >
                 {/* Thumbnail */}
                 <a
-                  href="#"
+                  href={`/blog/${post.slug}`}
                   className="
                     block
                     h-[72px]
@@ -620,6 +588,7 @@ function Sidebar({
                     rounded-sm
                     bg-gray-100
                   "
+                  aria-label={`Read ${post.title}`}
                 >
                   <img
                     src={post.img}
@@ -639,7 +608,7 @@ function Sidebar({
                 {/* Information */}
                 <div className="min-w-0">
                   <a
-                    href="#"
+                    href={`/blog/${post.slug}`}
                     className="
                       block
                       font-sans
@@ -774,9 +743,10 @@ function Pagination({
               font-semibold
               transition-all
 
-              ${isActive
-                ? "border-brand-primary bg-brand-primary text-brand-white"
-                : "border-transparent text-ink-muted hover:border-brand-primary/30 hover:bg-brand-primary/10 hover:text-ink"
+              ${
+                isActive
+                  ? "border-brand-primary bg-brand-primary text-brand-white"
+                  : "border-transparent text-ink-muted hover:border-brand-primary/30 hover:bg-brand-primary/10 hover:text-ink"
               }
             `}
           >
@@ -871,7 +841,7 @@ const Blog = () => {
     1,
     Math.ceil(
       filteredPosts.length /
-      POSTS_PER_PAGE
+        POSTS_PER_PAGE
     )
   );
 
@@ -999,8 +969,8 @@ const Blog = () => {
             className="
               min-w-0
               bg-white
-              shadow-lg
               p-4
+              shadow-lg
 
               sm:p-7
 
@@ -1009,10 +979,8 @@ const Blog = () => {
               xl:p-10
             "
           >
-          
-
             {/* ====================================================== */}
-            {/* NO RESULTS                                               */}
+            {/* BLOG POSTS                                               */}
             {/* ====================================================== */}
 
             {currentPosts.length === 0 ? (
@@ -1086,7 +1054,7 @@ const Blog = () => {
             ) : (
               <>
                 {/* ================================================== */}
-                {/* 5 BLOG POSTS                                          */}
+                {/* BLOG POSTS                                            */}
                 {/* ================================================== */}
 
                 {currentPosts.map(
@@ -1119,6 +1087,10 @@ const Blog = () => {
               </>
             )}
           </main>
+
+          {/* ======================================================== */}
+          {/* SIDEBAR                                                   */}
+          {/* ======================================================== */}
 
           <Sidebar
             searchTerm={searchTerm}

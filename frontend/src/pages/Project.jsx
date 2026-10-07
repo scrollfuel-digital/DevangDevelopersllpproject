@@ -407,6 +407,12 @@ function Hero() {
         >
           London street, Nagpur
         </span>
+
+        <CTAButton
+          to="https://rs3.devangdevelopers.com/"
+          label="RSIII Project"
+          className="py-4"
+        />
       </div>
     </section>
   );
@@ -526,7 +532,11 @@ function Welcome() {
     lg:mt-16
   "
             >
-              <CTAButton label="Download Brochure" />
+              <CTAButton
+                label="Download Brochure"
+                to="/brochures/final RIDDHI SIDDHI BROCHURE.pdf"
+                download
+              />
 
               <CTAButton
                 label="Let's Connect"
@@ -2038,10 +2048,10 @@ function Contact() {
               {/* Directions */}
               <CTAButton
                 label="Get Directions"
-                to=""
+                to="https://www.google.com/maps/dir/?api=1&destination=21.104915035628476, 79.06498741061229"
                 className="mt-3"
               />
-
+             
             </div>
           </Reveal>
 
@@ -2341,6 +2351,34 @@ const Project = () => {
       <Contact />
 
       <ReraStrip />
+      {/* ================= COMPLETED PROJECTS ================= */}
+      {/* <section className="relative w-full bg-white py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
+            <div>
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] !text-brand-primary sm:text-base">
+                Our Portfolio
+              </p>
+
+              <h3 className="text-4xl font-semibold tracking-tight !text-brand-primary-deep md:text-5xl">
+                Completed Projects
+              </h3>
+
+              <p className="mt-4 max-w-2xl text-base leading-7 text-gray-600">
+                Explore our successfully completed residential projects, designed
+                with thoughtful planning, quality construction, and lasting value.
+              </p>
+            </div>
+
+            <CTAButton
+              label="View Complete Projects"
+              to="/"
+              className="shrink-0"
+            />
+          </div>
+        </div>
+      </section> */}
+
     </div>
   );
 };
