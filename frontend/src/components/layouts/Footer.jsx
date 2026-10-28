@@ -196,7 +196,8 @@ const Footer = () => {
                 </div>
 
                 <span className="block max-w-[220px] font-bold leading-snug text-black/50 sm:max-w-none">
-                  Arpit Shrusti, 24, Tatya Tope Nagar, Nagpur, Maharashtra 440015
+                  {/* Arpit Shrusti, 24, Tatya Tope Nagar, Nagpur, Maharashtra 440015 */}
+                  32-A, Deep Apartment, Pande Layout, Khamla Road, Nagpur
                 </span>
               </div>
             </div>

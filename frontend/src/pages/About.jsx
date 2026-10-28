@@ -6,8 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Breadcrumb from "../components/ui/Breadcrumb";
 
 import building from "../assets/aboutussectionpage/abt-legacy-bg.webp";
-import about1 from "../assets/aboutussectionpage/hemal.jpeg";
-import about2 from "../assets/aboutussectionpage/sunil.png";
+
 import aboutus from "../assets/awards.jpeg";
 import hero from "../assets/aboutussectionpage/video/DevangWebsitevideo.mp4";
 
@@ -128,13 +127,13 @@ const About = () => {
         gsap.fromTo(
           ".hero-img",
           {
-            scale: 1.08,
-            opacity: 0,
+            scale: 1.04,
+            opacity: 0.3,
           },
           {
             scale: 1,
             opacity: 1,
-            duration: 1.8,
+            duration: 1.0,
             ease: "power2.out",
           }
         );
@@ -663,7 +662,8 @@ const About = () => {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
+          poster={building}
           className="
             hero-img
             absolute

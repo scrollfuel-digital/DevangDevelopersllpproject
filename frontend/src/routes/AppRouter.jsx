@@ -1,8 +1,19 @@
-import React from "react";
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
 
 // Auth Provider
 import { AuthProvider } from "../context/AuthContext";
+
+// Scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+};
 
 // Public Pages
 import Aboutus from "../pages/About";
@@ -42,6 +53,7 @@ const PublicLayout = () => {
 const AppRouter = () => {
   return (
     <AuthProvider>
+      <ScrollToTop />
       <Routes>
         {/* PUBLIC WEBSITE ROUTES */}
         <Route element={<PublicLayout />}>

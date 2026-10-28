@@ -772,65 +772,7 @@ function GetInTouchModal({ isOpen, onClose }) {
                             </label>
                         </div>
 
-                        {/* =================================================
-                            EMAIL
-                        ================================================= */}
-
-                        <label className="block">
-                            <span
-                                className="
-                                    block
-                                    font-sans
-                                    text-xs
-                                    font-medium
-                                    uppercase
-                                    tracking-[0.08em]
-                                    text-brand-black1/70
-                                "
-                            >
-                                Email*
-                            </span>
-
-                            <input
-                                name="email"
-                                value={values.email}
-                                onChange={handleChange}
-                                type="email"
-                                autoComplete="email"
-                                disabled={submitting}
-                                className="
-                                    mt-1
-                                    block
-                                    h-8
-                                    w-full
-                                    border-0
-                                    border-b
-                                    border-brand-black1/20
-                                    bg-transparent
-                                    px-0
-                                    font-sans
-                                    text-sm
-                                    text-brand-black1
-                                    outline-none
-                                    focus:border-brand-primary
-                                    disabled:opacity-50
-                                "
-                            />
-
-                            {errors.email && (
-                                <span
-                                    className="
-                                        mt-1
-                                        block
-                                        font-sans
-                                        text-[10px]
-                                        text-red-600
-                                    "
-                                >
-                                    {errors.email}
-                                </span>
-                            )}
-                        </label>
+                        
 
                         {/* =================================================
                             MESSAGE

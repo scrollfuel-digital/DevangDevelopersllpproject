@@ -22,7 +22,7 @@ import lobby from "../assets/projects/ongoingproject/lobby.jpeg";
 
 // project page 
 import road from "../assets/projects/ongoingproject/road.jpeg";
-import road1 from "../assets/projects/ongoingproject/road1.png";
+import road1 from "../assets/projects/ongoingproject/road2.png";
 import building from "../assets/projects/ongoingproject/image.png";
 import reraqr from "../assets/projects/ongoingproject/MahaReraQr.jpg.jpeg";
 
@@ -410,7 +410,7 @@ function Hero() {
 
         <CTAButton
           to="https://rs3.devangdevelopers.com/"
-          label="RSIII Project"
+          label="Explore Project"
           className="py-4"
         />
       </div>
@@ -533,8 +533,8 @@ function Welcome() {
   "
             >
               <CTAButton
-                label="Download Brochure"
-                to="/brochures/final RIDDHI SIDDHI BROCHURE.pdf"
+                label="Walk-Through"
+                to="/brochures/RIDDHI SIDDHI III BROCHURE.pdf"
                 download
               />
 
@@ -1884,23 +1884,7 @@ function Contact() {
                 </div>
               </div>
 
-              {/* EMAIL */}
-              <div className="mt-7 border-b border-[#CDBFAE]">
-                <input
-                  type="email"
-                  placeholder="Email*"
-                  className="
-                    w-full
-                    bg-transparent
-                    px-0
-                    py-4
-                    text-[14px]
-                    text-[#292929]
-                    placeholder:text-[#8D847A]
-                    focus:outline-none
-                  "
-                />
-              </div>
+            
 
               {/* CONSENT */}
               <label
@@ -1971,6 +1955,7 @@ function Contact() {
     sm:px-10
     lg:px-11
     xl:px-12
+    pt-10
   "
           >
             <div className="max-w-[430px]">
@@ -2289,6 +2274,7 @@ function ReraStrip() {
           px-5
           sm:px-10
           lg:px-12
+          
         "
       >
 
@@ -2305,16 +2291,13 @@ function ReraStrip() {
             sm:leading-6
             lg:text-[18px]
             lg:leading-7
+            text-center
           "
         >
           <span className="font-bold text-[#555]">
             Disclaimer:
           </span>{" "}
-          This content is for informational purposes only and does not
-          constitute an offer to avail of any service, Prices mentioned
-          are subject to change without notice, and properties mentioned
-          are subject to availability. Images are for representation
-          purposes only.
+          Properties mentioned are subject to availability. Images are for representation purposes only.
         </p>
 
       </div>
@@ -2326,7 +2309,7 @@ function ReraStrip() {
 
 const Project = () => {
   useEffect(() => {
-    const t = setTimeout(() => ScrollTrigger.refresh(), 300);
+    const t = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
       clearTimeout(t);
       ScrollTrigger.getAll().forEach((st) => st.kill());

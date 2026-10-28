@@ -575,17 +575,7 @@ function Contactus() {
                     </div>
                   </div>
 
-                  {/* Email field */}
-                  <div className="mt-7">
-                    <FloatingField
-                      label="Email"
-                      type="email"
-                      value={values.email}
-                      onChange={handleChange("email")}
-                      error={emailError}
-                      required
-                    />
-                  </div>
+                  
 
                   {/* Message field (Required by backend, max 500 characters) */}
                   <div className="mt-7">
