@@ -16,6 +16,7 @@ function GetInTouchModal({ isOpen, onClose }) {
     });
 
     const [turnstileToken, setTurnstileToken] = useState("");
+    const [agreed, setAgreed] = useState(false);
     const [errors, setErrors] = useState({});
 
     const {
@@ -64,6 +65,7 @@ function GetInTouchModal({ isOpen, onClose }) {
             });
 
             setTurnstileToken("");
+            setAgreed(false);
             setErrors({});
         }
     }, [isOpen]);
@@ -189,6 +191,13 @@ function GetInTouchModal({ isOpen, onClose }) {
         if (!turnstileToken) {
             newErrors.turnstile =
                 "Please complete the security verification.";
+        }
+
+        /* CONSENT */
+
+        if (!agreed) {
+            newErrors.agreed =
+                "Please accept the terms to proceed.";
         }
 
         setErrors(newErrors);
@@ -658,6 +667,61 @@ function GetInTouchModal({ isOpen, onClose }) {
                         </label>
 
                         {/* =================================================
+                            EMAIL
+                        ================================================= */}
+
+                        <label className="block">
+                            <span
+                                className="
+                                    block
+                                    font-sans
+                                    text-xs
+                                    font-medium
+                                    uppercase
+                                    tracking-[0.08em]
+                                    text-brand-black1/70
+                                "
+                            >
+                                Email*
+                            </span>
+
+                            <input
+                                name="email"
+                                value={values.email}
+                                onChange={handleChange}
+                                type="email"
+                                autoComplete="email"
+                                maxLength={100}
+                                disabled={submitting}
+                                className="
+                                    mt-1
+                                    block
+                                    h-8
+                                    w-full
+                                    border-0
+                                    border-b
+                                    border-brand-black1/20
+                                    bg-transparent
+                                    px-0
+                                    font-sans
+                                    text-sm
+                                    text-brand-black1
+                                    outline-none
+                                    transition-colors
+                                    placeholder:text-brand-black1/30
+                                    focus:border-brand-primary
+                                    disabled:opacity-50
+                                "
+                            />
+
+                            {errors.email && (
+                                <span className="mt-1 block font-sans text-[10px] text-red-600">
+                                    {errors.email}
+                                </span>
+                            )}
+                        </label>
+
+                        {/* =================================================
                             MOBILE
                         ================================================= */}
 
@@ -914,38 +978,50 @@ function GetInTouchModal({ isOpen, onClose }) {
                             CONSENT
                         ================================================= */}
 
-                        <label
-                            className="
-                                flex
-                                items-start
-                                gap-3
-                                font-sans
-                                text-[11px]
-                                leading-5
-                                text-brand-black1/55
-                            "
-                        >
-                            <input
-                                type="checkbox"
-                                required
-                                disabled={submitting}
+                        <div>
+                            <label
                                 className="
-                                    mt-1
-                                    h-3.5
-                                    w-3.5
-                                    shrink-0
-                                    accent-brand-primary
+                                    flex
+                                    items-start
+                                    gap-3
+                                    font-sans
+                                    text-[11px]
+                                    leading-5
+                                    text-brand-black1/55
+                                    cursor-pointer
                                 "
-                            />
-
-                            <span>
-                                I agree and authorize the team to
-                                contact me, overriding any DNC/NDNC
-                                registry, and I accept the terms and
-                                conditions outlined in the privacy
-                                policy.
-                            </span>
-                        </label>
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={agreed}
+                                    onChange={(e) => {
+                                        setAgreed(e.target.checked);
+                                        if (errors.agreed) setErrors((prev) => ({ ...prev, agreed: "" }));
+                                    }}
+                                    disabled={submitting}
+                                    className="
+                                        mt-1
+                                        h-3.5
+                                        w-3.5
+                                        shrink-0
+                                        accent-brand-primary
+                                        cursor-pointer
+                                    "
+                                />
+                                <span>
+                                    I agree and authorize the team to
+                                    contact me, overriding any DNC/NDNC
+                                    registry, and I accept the terms and
+                                    conditions outlined in the privacy
+                                    policy.
+                                </span>
+                            </label>
+                            {errors.agreed && (
+                                <span className="mt-1 block font-sans text-[10px] text-red-600">
+                                    {errors.agreed}
+                                </span>
+                            )}
+                        </div>
 
                         {/* =================================================
                             SUBMIT

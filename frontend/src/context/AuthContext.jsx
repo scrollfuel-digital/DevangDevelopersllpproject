@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
-import { loginAdmin, checkSessionApi, logoutAdmin } from "../api/authApi";
+import { loginAdmin, logoutAdmin } from "../api/authApi";
 import { setAxiosAuthToken } from "../api/axiosClient";
 
 const AuthContext = createContext(null);
@@ -32,35 +32,8 @@ export const AuthProvider = ({ children }) => {
       // Ignore storage errors
     }
 
-    const restoreSession = async () => {
-      setAuthLoading(true);
-      try {
-        const res = await checkSessionApi();
-        if (res && (res.user || res.email)) {
-          const userData = res.user || {
-            id: res.id || "admin-user",
-            name: res.name || "Devang Administrator",
-            email: res.email,
-            role: res.role || "Administrator",
-          };
-          setUser(userData);
-          setIsAuthenticated(true);
-          if (res.token) {
-            setToken(res.token);
-            setAxiosAuthToken(res.token);
-          }
-        }
-      } catch (err) {
-        // Unauthenticated or backend doesn't support session cookies yet
-        setIsAuthenticated(false);
-        setUser(null);
-        setToken(null);
-      } finally {
-        setAuthLoading(false);
-      }
-    };
-
-    restoreSession();
+    // Only check session if a token exists in memory (avoids 403 on public pages)
+    setAuthLoading(false);
   }, []);
 
   const login = useCallback(async (email, password, turnstileToken) => {

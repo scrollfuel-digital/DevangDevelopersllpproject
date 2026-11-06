@@ -107,10 +107,7 @@ export const useContact = (formKey = "CONTACT") => {
 
   const submitContact = async (payload) => {
     if (submitting) {
-      return {
-        success: false,
-        error: null,
-      };
+      return { success: false, error: null };
     }
 
     setSubmitting(true);
@@ -118,39 +115,15 @@ export const useContact = (formKey = "CONTACT") => {
     setSuccess(false);
 
     try {
-      // Also save into admin local storage service so inquiry appears in Admin Panel
-      try {
-        adminService.addInquiry({
-          name: payload.name || payload.fullName || "Website Visitor",
-          email: payload.email || "",
-          phone: payload.phone || payload.mobile || "",
-          projectInterest: payload.projectInterest || payload.project || payload.subject || "Devang Real Estate",
-          message: payload.message || payload.comments || "",
-        });
-      } catch (e) {
-        console.warn("Failed to save to local admin service", e);
-      }
-
       const data = await submitContactRequest(payload);
-
       setResponse(data);
       setSuccess(true);
-
-      return {
-        success: true,
-        data,
-      };
+      return { success: true, data };
     } catch (err) {
-      // Even if backend fails, check if we captured locally
       const formattedError = parseBackendError(err);
-
       setError(formattedError);
       setSuccess(false);
-
-      return {
-        success: false,
-        error: formattedError,
-      };
+      return { success: false, error: formattedError };
     } finally {
       setSubmitting(false);
     }

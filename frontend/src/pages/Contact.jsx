@@ -41,7 +41,11 @@ function Reveal({ children, className = "", as: Tag = "div", delay = 0, y = 20, 
           duration: 0.8,
           delay,
           ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          scrollTrigger: {
+            trigger: el,
+            start: "top 95%",
+            once: true,
+          },
         }
       );
     }, ref);
@@ -518,7 +522,7 @@ function Contactus() {
                 </div>
               </div>
             ) : (
-              <Reveal delay={0.1} className="mt-10 w-full font-sans">
+              <div className="mt-10 w-full font-sans">
                 <form onSubmit={handleSubmit} noValidate className="w-full">
                   {/* General Alert Banner */}
                   {generalErrorMessage && (
@@ -545,6 +549,19 @@ function Contactus() {
                     maxLength={50}
                     required
                   />
+
+                  {/* Email field */}
+                  <div className="mt-7">
+                    <FloatingField
+                      label="Email"
+                      type="email"
+                      value={values.email}
+                      onChange={handleChange("email")}
+                      error={emailError}
+                      maxLength={100}
+                      required
+                    />
+                  </div>
 
                   {/* Mobile field with Country code indicator */}
                   <div className="mt-7">
@@ -664,7 +681,7 @@ function Contactus() {
                     />
                   </div>
                 </form>
-              </Reveal>
+              </div>
             )}
           </div>
         </div>
