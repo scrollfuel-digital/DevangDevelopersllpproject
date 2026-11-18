@@ -119,8 +119,8 @@ const PROJECTS = [
         link: "",
         image: "https://res.cloudinary.com/ds1y9wivv/image/upload/v1795005137/devprathprojects_tbgvjj.png",
         features: [
-            "Recently delivered with the expertise of directors through sister firm Devprath Constructions ",
-            "A 64 shop 168 flat township specially curated and crafted for 2BHK Affordable segment users?"
+            "Recently delivered with the expertise of directors through sister firm Devprath Constructions LLP",
+            "A 64 shop, 168 flat township specially curated and crafted for 2BHK Affordable segment users."
         ]
     },
 ];
