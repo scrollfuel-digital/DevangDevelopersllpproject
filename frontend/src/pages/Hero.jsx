@@ -12,7 +12,7 @@ const Hero = () => {
             <Home />
             <About />
             <HorizontalScroll />
-            <Videozoom />
+            {/* <Videozoom /> */}
             <ProjectsSection />
             <DiscoverLife />
             <Contactus />

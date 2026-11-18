@@ -95,6 +95,7 @@ const PROJECTS = [
             "Spacious layouts with modern finishes",
         ],
     },
+
     {
         id: "riddhi-siddhi-3",
         name: "Riddhi Siddhi III",
@@ -108,6 +109,19 @@ const PROJECTS = [
             "Grand dual-access entrance from 9m & 24m wide roads with 4-level automated puzzle parking",
             "11th-floor amenity deck: pool, mini theatre, gym, yoga deck, kids' play & multipurpose hall",
         ],
+    },
+    {
+        id: "mmr",
+        name: "Mangalmurti Residency",
+        area: "Parsodi Wardha Road",
+        location: "Parsodi Wardha road, Nagpur",
+        tagline: "Devprath Constructions LLP",
+        link: "",
+        image: "https://res.cloudinary.com/ds1y9wivv/image/upload/v1795005137/devprathprojects_tbgvjj.png",
+        features: [
+            "Recently delivered with the expertise of directors through sister firm Devprath Constructions ",
+            "A 64 shop 168 flat township specially curated and crafted for 2BHK Affordable segment users?"
+        ]
     },
 ];
 
@@ -550,7 +564,7 @@ const ProjectsSection = () => {
                 flex
                 min-w-max
                 gap-7
-                lg:gap-21
+                lg:gap-13
             "
                         >
 

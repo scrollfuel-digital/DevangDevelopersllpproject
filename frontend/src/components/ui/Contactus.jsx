@@ -39,14 +39,14 @@ const Contactus = () => {
             </div>
 
             {/* scroll-to-top */}
-            <button
+            {/* <button
                 type="button"
                 onClick={scrollToTop}
                 aria-label="Scroll to top"
                 className="fixed bottom-6 right-6 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-brand-black1 border border-brand-primary/40 text-brand-primary hover:border-brand-primary hover:text-brand-primary transition-colors duration-300"
             >
                 <ArrowUp className="w-5 h-5" />
-            </button>
+            </button> */}
         </section>
     );
 };

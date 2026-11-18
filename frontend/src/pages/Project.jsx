@@ -411,6 +411,8 @@ function Hero() {
         <CTAButton
           to="https://rs3.devangdevelopers.com/"
           label="Explore Project"
+          target="_blank"
+          rel="noopener noreferrer"
           className="py-4"
         />
       </div>
@@ -1884,7 +1886,7 @@ function Contact() {
                 </div>
               </div>
 
-            
+
 
               {/* CONSENT */}
               <label
@@ -2036,7 +2038,7 @@ function Contact() {
                 to="https://www.google.com/maps/dir/?api=1&destination=21.104915035628476, 79.06498741061229"
                 className="mt-3"
               />
-             
+
             </div>
           </Reveal>
 

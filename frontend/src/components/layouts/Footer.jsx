@@ -242,18 +242,18 @@ const Footer = () => {
 
       {/* Distinct Executive Bottom Copyright Bar */}
       < div className="bg-white text-black/50 font-bold py-4 sm:py-5 px-4 sm:px-6 border-t-2 border-brand-primary/30" >
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-sm">
           <span>
             © {new Date().getFullYear()} <strong className="font-bold text-brand-primary">Devang Developers LLP</strong>. All rights reserved.
           </span>
 
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-2 text-xs font-bold text-black/50 hover:text-brand-black1 transition cursor-pointer group"
+            className="inline-flex items-center gap-2 text-lg font-bold text-black/50 hover:text-brand-black1 transition cursor-pointer group"
           >
             <span>Back to Top</span>
-            <div className="w-6 h-6 rounded-full bg-brand-primary/10 group-hover:bg-brand-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
-              <ArrowUp size={12} />
+            <div className="w-10 h-10 rounded-full bg-brand-primary/10 group-hover:bg-brand-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
+              <ArrowUp size={24} />
             </div>
           </button>
         </div>

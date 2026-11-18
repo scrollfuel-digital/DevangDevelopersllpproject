@@ -8,7 +8,7 @@ import Breadcrumb from "../components/ui/Breadcrumb";
 import building from "../assets/aboutussectionpage/abt-legacy-bg.webp";
 
 import aboutus from "../assets/awards.jpeg";
-import hero from "../assets/aboutussectionpage/video/DevangWebsitevideo.mp4";
+import hero from "../assets/aboutussectionpage/video/Devang_Websitevid.mp4";
 
 import VisionarySection from "../components/ui/VisionarySection";
 
@@ -127,13 +127,13 @@ const About = () => {
         gsap.fromTo(
           ".hero-img",
           {
-            scale: 1.04,
-            opacity: 0.3,
+            scale: 1.02,
+            opacity: 1,
           },
           {
             scale: 1,
             opacity: 1,
-            duration: 1.0,
+            duration: 0.35,
             ease: "power2.out",
           }
         );
@@ -171,7 +171,7 @@ const About = () => {
         heroTimeline.to(
           {},
           {
-            duration: 1.8,
+            duration: 0.1,
           }
         );
 
@@ -199,7 +199,7 @@ const About = () => {
         heroTimeline.to(
           {},
           {
-            duration: 2,
+            duration: 0.2,
           }
         );
 
@@ -656,7 +656,7 @@ const About = () => {
             HERO VIDEO
         --------------------------------------------------- */}
 
-        <video
+        {/* <video
           src={hero}
           autoPlay
           muted
@@ -678,8 +678,17 @@ const About = () => {
             sm:object-center
           "
           aria-label="Devang Developers luxury real estate property"
+        /> */}
+        <video
+          src={hero}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/images/our-story-poster.webp"
+          className="hero-img absolute inset-0 h-full w-full object-cover object-center"
         />
-
         {/* ---------------------------------------------------
             LUXURY OVERLAY
         --------------------------------------------------- */}

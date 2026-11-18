@@ -14,20 +14,20 @@ import GetInTouchModal from "../ui/GetInTouch";
 const NAV_LINKS = [
     {
         id: 1,
-        title: "RESIDENTIAL",
-        path: "/project",
+        title: "OUR STORY",
+        path: "/about",
         fit: "object-cover",
-        position: "object-[50%_20%]",
+        position: "object-center",
         scale: "scale-100",
         className: "w-full h-full",
         style: {},
     },
     {
         id: 2,
-        title: "OUR STORY",
-        path: "/about",
+        title: "RESIDENTIAL",
+        path: "/project",
         fit: "object-cover",
-        position: "object-center",
+        position: "object-[50%_20%]",
         scale: "scale-100",
         className: "w-full h-full",
         style: {},
@@ -558,7 +558,7 @@ const Navbar = () => {
                  */
                 setShowNavbar(true);
 
-                
+
                 setIsScrolled(true);
             }
 
@@ -1006,7 +1006,7 @@ const Navbar = () => {
                             }
                         `}
                     >
-                        
+
 
                         {/* HAMBURGER / X */}
 
