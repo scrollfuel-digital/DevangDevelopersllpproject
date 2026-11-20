@@ -294,7 +294,7 @@ const teamMembers = [
     ===================================================== */
     {
         id: "kirti-bhai",
-        name: "Kirti Bhai",
+        name: "Kirtibhai Seth",
         role: "Vastu Consultant",
         category: "vastu",
         image: kirtiBhaiImg,
